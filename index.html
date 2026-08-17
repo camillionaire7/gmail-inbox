@@ -45,12 +45,18 @@
       flex-direction: column;
     }
 
-    /* Top Fixed Header */
+    /* Fixed Header Area with Dynamic Collapse */
     .header-fixed-area {
       width: 100%;
       background: #121212 !important;
       z-index: 40;
       flex-shrink: 0;
+      padding-top: calc(env(safe-area-inset-top, 47px) + 56px);
+      transition: padding-top 0.18s cubic-bezier(0.2, 0.9, 0.42, 1);
+      will-change: padding-top;
+    }
+
+    .header-fixed-area.collapsed {
       padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
     }
 
@@ -88,8 +94,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .label-heading {
@@ -630,17 +637,17 @@
 
 <div class="app-container">
   <!-- Fixed Header & Search -->
-  <div class="header-fixed-area">
+  <div class="header-fixed-area" id="header-bar">
     <div class="search-chip">
       <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
       <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
-      <div class="gmail-avatar">Q</div>
+      <div class="gmail-avatar">JA</div>
     </div>
     <div class="label-heading">Primary</div>
   </div>
 
   <!-- Scrollable Mail List -->
-  <div class="content-view">
+  <div class="content-view" id="content-scroll-view">
     <div id="inbox-list"></div>
   </div>
 
@@ -1267,6 +1274,18 @@
   function closeCompose() {
     document.getElementById('compose-modal').classList.remove('active');
   }
+
+  /* Dynamic Scroll Header Transition */
+  const scrollContainer = document.getElementById('content-scroll-view');
+  const headerBar = document.getElementById('header-bar');
+
+  scrollContainer.addEventListener('scroll', () => {
+    if (scrollContainer.scrollTop > 24) {
+      headerBar.classList.add('collapsed');
+    } else {
+      headerBar.classList.remove('collapsed');
+    }
+  }, { passive: true });
 
   /* Interactive iOS Edge Swipe-to-Back */
   const detailEl = document.getElementById('detail-view');
