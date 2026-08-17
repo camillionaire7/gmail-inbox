@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#121212" />
   <title>Gmail</title>
   <style>
     :root {
@@ -17,8 +18,6 @@
       --accent-red: #ea4335;
       --accent-blue: #8ab4f8;
       --border-subtle: #2d2f31;
-      --compose-pill: #004a77;
-      --compose-text: #c2e7ff;
     }
 
     * {
@@ -29,53 +28,31 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Google Sans", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    body {
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-main);
       color: var(--text-primary);
+      overflow: hidden;
     }
 
-    .phone-container {
-      width: 100%;
-      max-width: 414px;
-      height: 896px;
-      max-height: 100vh;
+    /* Edge-to-Edge iPhone App Container */
+    .app-container {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: var(--bg-main);
       position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-      border-radius: 40px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-    }
-
-    @media (max-width: 450px) {
-      .phone-container {
-        height: 100vh;
-        border-radius: 0;
-      }
-    }
-
-    /* iOS Status Bar */
-    .status-bar {
-      height: 44px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 24px;
-      font-size: 14px;
-      font-weight: 600;
-      background: var(--bg-main);
-      color: var(--text-primary);
-      z-index: 10;
+      /* Dynamic Island / Status bar padding */
+      padding-top: env(safe-area-inset-top, 47px);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
     }
 
     /* Gmail Search Bar */
     .search-chip {
-      margin: 6px 16px 10px;
+      margin: 8px 16px 10px;
       height: 48px;
       background: var(--bg-search);
       border-radius: 24px;
@@ -84,6 +61,7 @@
       padding: 0 14px;
       gap: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
     }
 
     .search-chip input {
@@ -119,13 +97,15 @@
       letter-spacing: 0.8px;
       text-transform: uppercase;
       padding: 4px 20px 6px;
+      flex-shrink: 0;
     }
 
-    /* Email Items */
+    /* Email Items List */
     .content-view {
       flex: 1;
       overflow-y: auto;
       background: var(--bg-main);
+      -webkit-overflow-scrolling: touch;
     }
 
     .email-item {
@@ -219,15 +199,18 @@
 
     /* Detail / Reading View */
     .detail-view {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 100%;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       background: var(--bg-main);
-      z-index: 25;
+      z-index: 50;
       display: flex;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top, 47px);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
 
@@ -242,6 +225,7 @@
       align-items: center;
       padding: 0 16px;
       border-bottom: 0.5px solid var(--border-subtle);
+      flex-shrink: 0;
     }
 
     .detail-nav button {
@@ -257,6 +241,7 @@
       overflow-y: auto;
       padding: 16px;
       background: var(--bg-main);
+      -webkit-overflow-scrolling: touch;
     }
 
     .detail-title {
@@ -307,16 +292,10 @@
 </head>
 <body>
 
-<div class="phone-container">
-  <!-- Status Bar -->
-  <div class="status-bar">
-    <span id="live-time">9:41</span>
-    <span style="font-size: 12px; letter-spacing: 2px;">5G 100%</span>
-  </div>
-
+<div class="app-container">
   <!-- Search Header -->
   <div class="search-chip">
-    <span style="color: var(--text-secondary);">☰</span>
+    <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
     <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
     <div class="gmail-avatar">Q</div>
   </div>
@@ -330,7 +309,6 @@
 
   <!-- Reading View -->
   <div class="detail-view" id="detail-view">
-    <div class="status-bar"><span></span></div>
     <div class="detail-nav">
       <button onclick="closeDetail()">←</button>
       <div style="display: flex; gap: 18px;">
@@ -665,16 +643,6 @@
   ];
 
   let activeEmailId = null;
-
-  function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    document.getElementById('live-time').innerText = `${hours % 12 || 12}:${minutes}`;
-  }
-  setInterval(updateTime, 1000);
-  updateTime();
 
   function renderInbox(data = inbox) {
     const container = document.getElementById('inbox-list');
