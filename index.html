@@ -319,7 +319,7 @@
       fill: #c4c7c5;
     }
 
-    /* Detail View with Interactive iOS Edge Swipe */
+    /* Detail View */
     .detail-view {
       position: absolute;
       top: 0;
@@ -330,7 +330,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 2px);
       box-shadow: -6px 0 20px rgba(0, 0, 0, 0.6);
       will-change: transform;
     }
@@ -343,13 +343,13 @@
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
 
+    /* Native Gmail Top Action Bar */
     .detail-nav {
-      height: 48px;
+      height: 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 16px;
-      border-bottom: 0.5px solid var(--border-subtle);
       background: #121212;
       flex-shrink: 0;
     }
@@ -357,32 +357,90 @@
     .detail-nav button {
       background: none;
       border: none;
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       color: var(--text-secondary);
+      padding: 6px;
+    }
+
+    .detail-nav button svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--text-primary);
+    }
+
+    .detail-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .detail-body-container {
       flex: 1;
       overflow-y: auto;
-      padding: 16px 16px 20px;
+      padding: 12px 16px 20px;
       background: #121212;
       -webkit-overflow-scrolling: touch;
     }
 
+    .detail-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
     .detail-title {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 19px;
+      font-weight: 500;
       color: var(--text-primary);
-      margin-bottom: 14px;
       line-height: 1.35;
+      flex: 1;
+    }
+
+    .detail-star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .detail-star-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: var(--text-secondary);
+      stroke-width: 2;
+    }
+
+    .detail-star-btn.starred svg {
+      fill: var(--accent-blue);
+      stroke: var(--accent-blue);
+    }
+
+    .inbox-badge {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: #282a2d;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-bottom: 18px;
     }
 
     .detail-meta-chip {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .meta-col {
@@ -399,7 +457,7 @@
 
     .meta-sender {
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--text-primary);
     }
 
@@ -417,22 +475,29 @@
       margin-top: 1px;
     }
 
-    .meta-actions-right {
+    .meta-inline-actions {
       display: flex;
       align-items: center;
-      gap: 14px;
-      color: #8ab4f8;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .meta-actions-right span.dots {
+      gap: 16px;
       color: var(--text-secondary);
-      font-size: 18px;
-      letter-spacing: 1px;
     }
 
-    /* Expandable Sender Details Card */
+    .meta-inline-actions button {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .meta-inline-actions button svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-secondary);
+    }
+
     .sender-details-card {
       display: none;
       background: #18191b;
@@ -504,8 +569,7 @@
     }
 
     .detail-html-content {
-      border-top: 0.5px solid var(--border-subtle);
-      padding-top: 14px;
+      padding-top: 10px;
       font-size: 14px;
       line-height: 1.5;
       color: #e8eaed;
@@ -517,7 +581,7 @@
       display: block;
     }
 
-    /* Fixed In-Flow Action Bar at Bottom of Email */
+    /* Fixed Persistent Action Bar at Bottom of Email */
     .detail-action-bar-fixed {
       background: #18191b;
       border-top: 0.5px solid #2d2f31;
@@ -571,7 +635,7 @@
       fill: #e8eaed;
     }
 
-    /* Compose Modal Window */
+    /* Native Gmail Compose View */
     .compose-modal-screen {
       position: absolute;
       top: 0;
@@ -582,7 +646,7 @@
       z-index: 60;
       display: none;
       flex-direction: column;
-      padding-top: env(safe-area-inset-top, 47px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 2px);
       padding-bottom: env(safe-area-inset-bottom, 8px);
     }
 
@@ -599,17 +663,50 @@
       border-bottom: 0.5px solid var(--border-subtle);
     }
 
+    .compose-header-bar button {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .compose-header-bar button svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--text-primary);
+    }
+
+    .compose-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     .compose-field-line {
       display: flex;
       align-items: center;
-      padding: 10px 16px;
+      padding: 12px 16px;
       border-bottom: 0.5px solid var(--border-subtle);
-      font-size: 14px;
+      font-size: 15px;
+    }
+
+    .compose-field-line.to-row {
+      justify-content: space-between;
+    }
+
+    .to-left-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
     }
 
     .compose-field-line label {
       color: var(--text-secondary);
-      width: 60px;
+      font-size: 15px;
     }
 
     .compose-field-line input {
@@ -618,18 +715,41 @@
       background: transparent;
       outline: none;
       color: var(--text-primary);
-      font-size: 14px;
+      font-size: 15px;
     }
 
-    .compose-body-area {
+    .compose-field-line input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .compose-scroll-body {
       flex: 1;
+      overflow-y: auto;
       padding: 16px;
-      border: none;
-      outline: none;
-      background: transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .compose-fwd-header {
+      font-size: 14px;
+      line-height: 1.5;
       color: var(--text-primary);
-      font-size: 15px;
-      resize: none;
+      margin-bottom: 16px;
+    }
+
+    .compose-fwd-header strong {
+      color: #ffffff;
+    }
+
+    .compose-fwd-html-content {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #e8eaed;
+    }
+
+    .compose-fwd-html-content img {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
     }
   </style>
 </head>
@@ -672,16 +792,37 @@
   <!-- Detail / Reading View -->
   <div class="detail-view" id="detail-view">
     <div class="detail-nav">
-      <button onclick="closeDetail()">←</button>
-      <div style="display: flex; gap: 18px;">
-        <button onclick="deleteEmail()">🗑️</button>
-        <button>✉️</button>
-        <button>⋮</button>
+      <button onclick="closeDetail()">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <div class="detail-nav-actions">
+        <button onclick="deleteEmail()">
+          <svg viewBox="0 0 24 24"><path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/></svg>
+        </button>
+        <button onclick="deleteEmail()">
+          <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </button>
+        <button onclick="closeDetail()">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </button>
+        <button>
+          <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </button>
       </div>
     </div>
+
     <div class="detail-body-container">
-      <div class="detail-title" id="read-title"></div>
+      <div class="detail-header-row">
+        <div class="detail-title" id="read-title"></div>
+        <button class="detail-star-btn" id="read-star-btn" onclick="toggleDetailStar()">
+          <svg viewBox="0 0 24 24">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+        </button>
+      </div>
       
+      <div class="inbox-badge">Inbox</div>
+
       <div class="detail-meta-chip">
         <div class="sender-avatar" id="read-avatar" style="background:#5f6368;">
           <svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -696,9 +837,16 @@
             <span id="chevron-icon" style="font-size: 11px;">⌄</span>
           </div>
         </div>
-        <div class="meta-actions-right">
-          <span>Unsubscribe</span>
-          <span class="dots">•••</span>
+        <div class="meta-inline-actions">
+          <button>
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+          </button>
+          <button onclick="openCompose('reply')">
+            <svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+          </button>
+          <button>
+            <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </button>
         </div>
       </div>
 
@@ -732,11 +880,11 @@
 
     <!-- Fixed Persistent Action Bar at Bottom of Email -->
     <div class="detail-action-bar-fixed">
-      <button class="action-btn-pill" onclick="openCompose('Re: ')">
+      <button class="action-btn-pill" onclick="openCompose('reply')">
         <svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
         <span>Reply</span>
       </button>
-      <button class="action-btn-pill" onclick="openCompose('Fwd: ')">
+      <button class="action-btn-pill" onclick="openCompose('forward')">
         <svg viewBox="0 0 24 24"><path d="M14 9v-4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg>
         <span>Forward</span>
       </button>
@@ -746,26 +894,53 @@
     </div>
   </div>
 
-  <!-- Compose Window Modal -->
+  <!-- Native Gmail Compose Window Modal -->
   <div class="compose-modal-screen" id="compose-modal">
     <div class="compose-header-bar">
-      <button style="background:none; border:none; color:var(--text-secondary); font-size:20px;" onclick="closeCompose()">✕</button>
-      <span style="font-weight: 600;">Compose</span>
-      <button style="background:none; border:none; color:#8ab4f8; font-weight:700; font-size:15px;" onclick="closeCompose()">Send</button>
+      <button onclick="closeCompose()">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <div class="compose-top-actions">
+        <button>
+          <svg viewBox="0 0 24 24"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29c-.39-.39-1.02-.39-1.41 0L1.29 18.96c-.39.39-.39 1.02 0 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05c.39-.39.39-1.02 0-1.41l-2.33-2.35zm-1.03 5.49l-2.12-2.12 2.44-2.44 2.12 2.12-2.44 2.44z"/></svg>
+        </button>
+        <button>
+          <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg>
+        </button>
+        <button onclick="closeCompose()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+        <button>
+          <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </button>
+      </div>
     </div>
-    <div class="compose-field-line">
-      <label>From:</label>
-      <input type="text" value="quirozluisa313@gmail.com" />
+
+    <!-- Interactive Header Rows -->
+    <div class="compose-field-line to-row">
+      <div class="to-left-group">
+        <span id="compose-type-icon" style="color: var(--text-secondary); display:flex; align-items:center; gap:2px;">
+          <svg style="width:18px; height:18px; fill:var(--text-secondary);" viewBox="0 0 24 24"><path d="M14 9v-4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg>
+          <span style="font-size: 10px;">▾</span>
+        </span>
+        <input type="text" id="comp-to" placeholder="Forward to" />
+      </div>
+      <span style="color: var(--text-secondary); font-size: 11px;">⌄</span>
     </div>
+
     <div class="compose-field-line">
-      <label>To:</label>
-      <input type="text" id="comp-to" placeholder="Recipients" />
+      <label style="margin-right: 12px;">From</label>
+      <input type="text" id="comp-from" value="7cam7cam@gmail.com" />
     </div>
+
     <div class="compose-field-line">
-      <label>Subject:</label>
       <input type="text" id="comp-subject" placeholder="Subject" />
     </div>
-    <textarea class="compose-body-area" placeholder="Compose email"></textarea>
+
+    <div class="compose-scroll-body">
+      <div id="compose-fwd-header-block" class="compose-fwd-header"></div>
+      <div id="compose-fwd-content-block" class="compose-fwd-html-content"></div>
+    </div>
   </div>
 </div>
 
@@ -778,7 +953,7 @@
       subject: "Your receipt from Apple Store",
       snippet: "Apple Store receipt: $10.81. Payment Method: Apple Card (Mastercard .... 8821)...",
       date: "9:18 PM",
-      fullDate: "Aug 16, 2026 at 9:18 PM",
+      fullDate: "Mon, Aug 16, 2026 at 9:18 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -792,7 +967,7 @@
       subject: "Your order from Chipotle Mexican Grill is on its way!",
       snippet: "Your Dasher is heading to the store. Track your burrito bowl delivery live...",
       date: "8:05 PM",
-      fullDate: "Aug 16, 2026 at 8:05 PM",
+      fullDate: "Mon, Aug 16, 2026 at 8:05 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -806,7 +981,7 @@
       subject: "USPS Expected Delivery Update: 94001118992231",
       snippet: "Your package is on schedule to arrive tomorrow, Monday, August 17. Status: In Transit...",
       date: "7:12 PM",
-      fullDate: "Aug 16, 2026 at 7:12 PM",
+      fullDate: "Mon, Aug 16, 2026 at 7:12 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -820,7 +995,7 @@
       subject: "Your H-E-B order is confirmed for pickup!",
       snippet: "Thanks for placing your order! Pickup slot reserved: Monday 10:00 AM - 10:30 AM at San Pedro...",
       date: "5:05 PM",
-      fullDate: "Aug 16, 2026 at 5:05 PM",
+      fullDate: "Mon, Aug 16, 2026 at 5:05 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -834,7 +1009,7 @@
       subject: "Delivered: Your Amazon package with Ultra PRO Toploaders...",
       snippet: "Your package has been delivered. It was handed directly to a resident or placed in your safe parcel box...",
       date: "2:42 PM",
-      fullDate: "Aug 16, 2026 at 2:42 PM",
+      fullDate: "Mon, Aug 16, 2026 at 2:42 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -848,7 +1023,7 @@
       subject: "Thank you for your Steam purchase!",
       snippet: "An item on your Steam wishlist is on sale! Also attached is your digital receipt for transaction...",
       date: "1:18 PM",
-      fullDate: "Aug 16, 2026 at 1:18 PM",
+      fullDate: "Mon, Aug 16, 2026 at 1:18 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -862,7 +1037,7 @@
       subject: "Ready for Pickup: Your prescription is ready at CVS",
       snippet: "Your Rx order is ready at your local CVS Pharmacy located at 410 / San Pedro Ave. Store hours...",
       date: "11:15 AM",
-      fullDate: "Aug 16, 2026 at 11:15 AM",
+      fullDate: "Mon, Aug 16, 2026 at 11:15 AM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -876,7 +1051,7 @@
       subject: "Your Spotify Premium receipt for August",
       snippet: "We've received your monthly subscription payment of $11.99. Thanks for jamming with us...",
       date: "Aug 15",
-      fullDate: "Aug 15, 2026 at 8:10 AM",
+      fullDate: "Sun, Aug 15, 2026 at 8:10 AM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -890,7 +1065,7 @@
       subject: "Thank You For Your Purchase",
       snippet: "We acknowledge receipt of your order. Funds have been deducted from your PSN wallet balance...",
       date: "Aug 14",
-      fullDate: "Aug 14, 2026 at 6:40 PM",
+      fullDate: "Sat, Aug 14, 2026 at 6:40 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -904,7 +1079,7 @@
       subject: "Coming this Friday: New releases for your watchlist",
       snippet: "Check out what's trending this week on Netflix based on your recent viewing history...",
       date: "Aug 13",
-      fullDate: "Aug 13, 2026 at 3:15 PM",
+      fullDate: "Fri, Aug 13, 2026 at 3:15 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -918,7 +1093,7 @@
       subject: "You've earned free rewards points!",
       snippet: "Your recent visit added 120 points to your account. You are now only 80 points away from a reward...",
       date: "Aug 11",
-      fullDate: "Aug 11, 2026 at 12:45 PM",
+      fullDate: "Wed, Aug 11, 2026 at 12:45 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -932,7 +1107,7 @@
       subject: "Receipt for your payment to Nintendo of America",
       snippet: "You sent a payment of $19.99 USD to Nintendo of America Inc. View transaction details...",
       date: "Aug 10",
-      fullDate: "Aug 10, 2026 at 4:20 PM",
+      fullDate: "Tue, Aug 10, 2026 at 4:20 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -946,7 +1121,7 @@
       subject: "Your weekly account balance summary",
       snippet: "Here is the summary of your checking and savings balances as of August 9, 2026...",
       date: "Aug 9",
-      fullDate: "Aug 9, 2026 at 9:00 AM",
+      fullDate: "Mon, Aug 9, 2026 at 9:00 AM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -960,7 +1135,7 @@
       subject: "UPS Delivery Notification: Package scheduled for delivery",
       snippet: "Tracking Number 1Z9999999999999999. Estimated time of delivery between 1:00 PM and 5:00 PM...",
       date: "Aug 8",
-      fullDate: "Aug 8, 2026 at 10:12 AM",
+      fullDate: "Sun, Aug 8, 2026 at 10:12 AM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -974,7 +1149,7 @@
       subject: "Your digital receipt for Order #BBY01-849102",
       snippet: "Thanks for shopping in store! Here is a digital copy of your purchase receipt for your records...",
       date: "Aug 6",
-      fullDate: "Aug 6, 2026 at 5:22 PM",
+      fullDate: "Fri, Aug 6, 2026 at 5:22 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -988,7 +1163,7 @@
       subject: "Your item has shipped! (Tracking attached)",
       snippet: "Great news! The seller has shipped your order: Japanese Booster Pack Case (10 Count)...",
       date: "Aug 5",
-      fullDate: "Aug 5, 2026 at 11:30 AM",
+      fullDate: "Thu, Aug 5, 2026 at 11:30 AM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1002,7 +1177,7 @@
       subject: "FedEx Shipment Delivered: Signature Received",
       snippet: "Your FedEx shipment with tracking number 773918291032 was delivered to your address...",
       date: "Aug 4",
-      fullDate: "Aug 4, 2026 at 1:14 PM",
+      fullDate: "Wed, Aug 4, 2026 at 1:14 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1013,10 +1188,10 @@
       id: 1,
       sender: "Round1 No Reply",
       senderEmail: "noreply@round1usa.com",
-      subject: "[Required for Pickup] Thanks for entering ONE...",
+      subject: "[Required for Pickup] Thanks for entering ONE PIECE CARD GAME - ROUND1 Promotion Pack - Phase 3",
       snippet: "Hi John Alzate, Congratulations! You're eligi...",
       date: "Aug 3",
-      fullDate: "Aug 3, 2026 at 10:02 AM",
+      fullDate: "Mon, Aug 3, 2026 at 10:03 AM",
       unread: false,
       starred: true,
       useIconAvatar: true,
@@ -1078,7 +1253,7 @@
       subject: "Don't sleep on these new member favorites!",
       snippet: "Curated essentials and trending products you'...",
       date: "Aug 3",
-      fullDate: "Aug 3, 2026 at 9:15 AM",
+      fullDate: "Mon, Aug 3, 2026 at 9:15 AM",
       unread: false,
       starred: false,
       useIconAvatar: true,
@@ -1092,7 +1267,7 @@
       subject: "Still time for July Instant Savings* ⏰",
       snippet: "Your cart wants these.",
       date: "Aug 2",
-      fullDate: "Aug 2, 2026 at 3:45 PM",
+      fullDate: "Sun, Aug 2, 2026 at 3:45 PM",
       unread: false,
       starred: false,
       useIconAvatar: true,
@@ -1106,7 +1281,7 @@
       subject: "Thanks for your order! (Order #983419082)",
       snippet: "We're preparing your order for shipping. We'll send tracking information as soon as your items leave our facility...",
       date: "Jul 29",
-      fullDate: "Jul 29, 2026 at 2:19 PM",
+      fullDate: "Wed, Jul 29, 2026 at 2:19 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1120,7 +1295,7 @@
       subject: "New login to Discord from Chrome on Windows",
       snippet: "Your Discord account was recently logged into from a new IP address located in Texas, United States...",
       date: "Jul 26",
-      fullDate: "Jul 26, 2026 at 11:42 PM",
+      fullDate: "Sun, Jul 26, 2026 at 11:42 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1134,7 +1309,7 @@
       subject: "Your Saturday evening receipt with Uber Eats",
       snippet: "Total: $24.85. Thanks for ordering, John! Here is the detailed breakdown of your food delivery order...",
       date: "Jul 22",
-      fullDate: "Jul 22, 2026 at 8:54 PM",
+      fullDate: "Wed, Jul 22, 2026 at 8:54 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1188,6 +1363,28 @@
     if (item) {
       item.starred = !item.starred;
       renderInbox();
+      if (activeEmailId === id) {
+        updateDetailStarIcon(item.starred);
+      }
+    }
+  }
+
+  function toggleDetailStar() {
+    if (!activeEmailId) return;
+    const item = inbox.find(x => x.id === activeEmailId);
+    if (item) {
+      item.starred = !item.starred;
+      updateDetailStarIcon(item.starred);
+      renderInbox();
+    }
+  }
+
+  function updateDetailStarIcon(isStarred) {
+    const starBtn = document.getElementById('read-star-btn');
+    if (isStarred) {
+      starBtn.classList.add('starred');
+    } else {
+      starBtn.classList.remove('starred');
     }
   }
 
@@ -1211,6 +1408,8 @@
       : item.sender.charAt(0).toUpperCase();
     document.getElementById('read-avatar').style.background = item.avatarColor || '#5f6368';
     document.getElementById('read-content').innerHTML = item.htmlBody;
+
+    updateDetailStarIcon(item.starred);
 
     document.getElementById('card-from').innerText = item.senderEmail || item.sender;
     document.getElementById('card-to').innerText = "Hide My Email";
@@ -1256,19 +1455,52 @@
     renderInbox(filtered);
   }
 
-  function openCompose(prefix = '') {
+  function openCompose(actionType = 'new') {
     const modal = document.getElementById('compose-modal');
+    const toInput = document.getElementById('comp-to');
+    const subjectInput = document.getElementById('comp-subject');
+    const fwdHeader = document.getElementById('compose-fwd-header-block');
+    const fwdContent = document.getElementById('compose-fwd-content-block');
+    const typeIcon = document.getElementById('compose-type-icon');
+
     modal.classList.add('active');
+
     if (activeEmailId) {
       const item = inbox.find(x => x.id === activeEmailId);
       if (item) {
-        document.getElementById('comp-to').value = prefix ? item.senderEmail || item.sender : '';
-        document.getElementById('comp-subject').value = prefix ? prefix + item.subject : '';
-        return;
+        if (actionType === 'forward') {
+          typeIcon.innerHTML = `<svg style="width:18px; height:18px; fill:var(--text-secondary);" viewBox="0 0 24 24"><path d="M14 9v-4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg><span style="font-size: 10px;">▾</span>`;
+          toInput.placeholder = "Forward to";
+          toInput.value = "";
+          subjectInput.value = `Fwd: ${item.subject}`;
+
+          fwdHeader.innerHTML = `
+            ---------- Forwarded message ---------<br>
+            From: <strong>${item.sender}</strong> &lt;${item.senderEmail}&gt;<br>
+            Date: ${item.fullDate}<br>
+            Subject: ${item.subject}<br>
+            To: &lt;7cam7cam@gmail.com&gt;
+          `;
+          fwdContent.innerHTML = item.htmlBody;
+          return;
+        } else if (actionType === 'reply') {
+          typeIcon.innerHTML = `<svg style="width:18px; height:18px; fill:var(--text-secondary);" viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg><span style="font-size: 10px;">▾</span>`;
+          toInput.placeholder = "Reply to";
+          toInput.value = item.senderEmail;
+          subjectInput.value = `Re: ${item.subject}`;
+          fwdHeader.innerHTML = "";
+          fwdContent.innerHTML = item.htmlBody;
+          return;
+        }
       }
     }
-    document.getElementById('comp-to').value = '';
-    document.getElementById('comp-subject').value = '';
+
+    typeIcon.innerHTML = `<label style="color:var(--text-secondary); font-size:15px;">To</label>`;
+    toInput.placeholder = "Recipients";
+    toInput.value = "";
+    subjectInput.value = "";
+    fwdHeader.innerHTML = "";
+    fwdContent.innerHTML = "";
   }
 
   function closeCompose() {
