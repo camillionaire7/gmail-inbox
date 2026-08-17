@@ -13,6 +13,9 @@
       --bg-surface: #1e1e1e;
       --bg-search: #303134;
       --bg-unread: #1f2329;
+      --bg-drawer: #202124;
+      --drawer-active: #4a383b;
+      --drawer-active-text: #f2b8b5;
       --text-primary: #e8eaed;
       --text-secondary: #9aa0a6;
       --accent-red: #ea4335;
@@ -67,9 +70,21 @@
       border-radius: 24px;
       display: flex;
       align-items: center;
-      padding: 0 16px;
-      gap: 14px;
+      padding: 0 14px;
+      gap: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
     }
 
     .search-chip input {
@@ -319,6 +334,126 @@
       fill: #c4c7c5;
     }
 
+    /* Side Navigation Drawer Overlay */
+    .drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 70;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .side-drawer {
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 78%;
+      max-width: 320px;
+      height: 100%;
+      background: var(--bg-drawer);
+      z-index: 75;
+      display: flex;
+      flex-direction: column;
+      padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
+      padding-bottom: env(safe-area-inset-bottom, 12px);
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .side-drawer.active {
+      transform: translateX(100%);
+    }
+
+    .drawer-logo-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 20px 16px;
+      gap: 12px;
+      border-bottom: 0.5px solid #2d2f31;
+    }
+
+    .drawer-logo-row svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .drawer-logo-text {
+      font-size: 21px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .drawer-menu-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 16px;
+      border-radius: 24px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 14.5px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .drawer-item svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .drawer-item.active {
+      background: var(--drawer-active);
+      color: var(--drawer-active-text);
+    }
+
+    .drawer-item.active svg {
+      fill: var(--drawer-active-text);
+    }
+
+    .drawer-count {
+      margin-left: auto;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .drawer-badge-new {
+      margin-left: auto;
+      background: #a8c7fa;
+      color: #041e49;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .drawer-divider {
+      height: 0.5px;
+      background: #2d2f31;
+      margin: 8px 12px;
+    }
+
     /* Detail View with .25in Top Offset */
     .detail-view {
       position: absolute;
@@ -343,7 +478,6 @@
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
 
-    /* Native Gmail Top Action Bar */
     .detail-nav {
       height: 50px;
       display: flex;
@@ -771,7 +905,7 @@
   <!-- Fixed Header & Search -->
   <div class="header-fixed-area" id="header-bar">
     <div class="search-chip">
-      <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
+      <button class="menu-btn" onclick="openDrawer()">☰</button>
       <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
       <div class="gmail-avatar">JA</div>
     </div>
@@ -799,6 +933,107 @@
     <button class="nav-tab-btn nav-tab-video">
       <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
     </button>
+  </div>
+
+  <!-- Side Navigation Drawer & Backdrop -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="side-drawer" id="side-drawer">
+    <div class="drawer-logo-row">
+      <svg viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M1.5 5.5v13a2 2 0 002 2h3.5v-10l-5-5z"/>
+        <path fill="#34A853" d="M17 20.5h3.5a2 2 0 002-2v-13l-5.5 5v10z"/>
+        <path fill="#EA4335" d="M17 5.5l-5 4-5-4V20.5h10V5.5z"/>
+        <path fill="#FBBC05" d="M1.5 5.5l10.5 8 10.5-8L18 2H6L1.5 5.5z"/>
+      </svg>
+      <span class="drawer-logo-text">Gmail</span>
+    </div>
+
+    <div class="drawer-menu-list">
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+        <span>All inboxes</span>
+        <span class="drawer-count">4</span>
+      </div>
+      <div class="drawer-divider"></div>
+
+      <div class="drawer-item active" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.89 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z"/></svg>
+        <span>Primary</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>Social</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+        <span>Promotions</span>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <span>Starred</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        <span>Snoozed</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M3.5 18.99l11 .01c.67 0 1.27-.33 1.63-.84L20.5 12l-4.37-6.16c-.36-.51-.96-.84-1.63-.84l-11 .01L8 12l-4.5 6.99z"/></svg>
+        <span>Important</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 16H6V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/></svg>
+        <span>Purchases</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        <span>Sent</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        <span>Scheduled</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5h3V9h4v3h3l-5 5z"/></svg>
+        <span>Outbox</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+        <span>Drafts</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>All mail</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        <span>Spam</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        <span>Trash</span>
+      </div>
+
+      <div class="drawer-item" onclick="closeDrawer()">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 9h-3.5v1.5h-3V13H4V6h15v7z"/></svg>
+        <span>Manage subscriptions</span>
+        <span class="drawer-badge-new">New</span>
+      </div>
+    </div>
   </div>
 
   <!-- Detail / Reading View -->
@@ -1465,6 +1700,16 @@
       x.snippet.toLowerCase().includes(term)
     );
     renderInbox(filtered);
+  }
+
+  function openDrawer() {
+    document.getElementById('drawer-overlay').classList.add('active');
+    document.getElementById('side-drawer').classList.add('active');
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawer-overlay').classList.remove('active');
+    document.getElementById('side-drawer').classList.remove('active');
   }
 
   function openCompose(actionType = 'new') {
