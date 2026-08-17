@@ -137,6 +137,13 @@
       font-size: 16px;
       color: #fff;
       flex-shrink: 0;
+      background: #5f6368;
+    }
+
+    .avatar-icon-svg {
+      width: 24px;
+      height: 24px;
+      fill: #bdc1c6;
     }
 
     .email-info {
@@ -191,6 +198,13 @@
       font-weight: 700;
     }
 
+    .snippet-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
     .snippet-text {
       font-size: 13px;
       color: var(--text-secondary);
@@ -198,6 +212,32 @@
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      flex: 1;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .star-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--text-secondary);
+      stroke-width: 2;
+    }
+
+    .star-btn.starred svg {
+      fill: var(--accent-blue);
+      stroke: var(--accent-blue);
     }
 
     /* Floating Compose Pill */
@@ -227,7 +267,7 @@
       fill: #ffffff;
     }
 
-    /* Bottom iOS Navigation Bar (In-Flow) */
+    /* Bottom iOS Navigation Bar */
     .bottom-nav-bar {
       width: 100%;
       background: #000000;
@@ -465,7 +505,7 @@
       display: block;
     }
 
-    /* Fixed In-Flow Action Bar at Bottom of Email */
+    /* Fixed Persistent Action Bar at Bottom of Email */
     .detail-action-bar-fixed {
       background: #18191b;
       border-top: 0.5px solid #2d2f31;
@@ -631,10 +671,12 @@
       <div class="detail-title" id="read-title"></div>
       
       <div class="detail-meta-chip">
-        <div class="sender-avatar" id="read-avatar">N</div>
+        <div class="sender-avatar" id="read-avatar" style="background:#5f6368;">
+          <svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
         <div class="meta-col" onclick="toggleSenderCard()">
           <div class="meta-top-row">
-            <span class="meta-sender" id="read-sender">noreply</span>
+            <span class="meta-sender" id="read-sender">Round1 No Reply</span>
             <span class="meta-date" id="read-date-header">Aug 3</span>
           </div>
           <div class="meta-to-row">
@@ -726,6 +768,8 @@
       date: "9:18 PM",
       fullDate: "Aug 16, 2026 at 9:18 PM",
       unread: true,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#5f6368",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Apple Pay Receipt</h3><p>Amount: $10.81 paid to Apple Services.</p></div>`
     },
@@ -738,6 +782,8 @@
       date: "8:05 PM",
       fullDate: "Aug 16, 2026 at 8:05 PM",
       unread: true,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#eb1700",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>DoorDash Delivery</h3><p>Your driver is on the way with your order.</p></div>`
     },
@@ -750,6 +796,8 @@
       date: "7:12 PM",
       fullDate: "Aug 16, 2026 at 7:12 PM",
       unread: true,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#004b87",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>USPS Tracking</h3><p>Package arriving Monday, August 17.</p></div>`
     },
@@ -762,6 +810,8 @@
       date: "5:05 PM",
       fullDate: "Aug 16, 2026 at 5:05 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#c62828",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>H-E-B Curbside</h3><p>Pickup reserved for Monday morning.</p></div>`
     },
@@ -774,6 +824,8 @@
       date: "2:42 PM",
       fullDate: "Aug 16, 2026 at 2:42 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#ff9900",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Delivered</h3><p>Order #114-8923171-4820194 delivered at 2:38 PM.</p></div>`
     },
@@ -786,6 +838,8 @@
       date: "1:18 PM",
       fullDate: "Aug 16, 2026 at 1:18 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#171a21",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Steam Order</h3><p>Receipt for wallet top-up.</p></div>`
     },
@@ -798,6 +852,8 @@
       date: "11:15 AM",
       fullDate: "Aug 16, 2026 at 11:15 AM",
       unread: true,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#cc0000",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>CVS Pharmacy</h3><p>Your Rx order ending in 4920 is ready for pickup.</p></div>`
     },
@@ -810,6 +866,8 @@
       date: "Aug 15",
       fullDate: "Aug 15, 2026 at 8:10 AM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#1db954",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Spotify Premium</h3><p>Receipt for August monthly plan.</p></div>`
     },
@@ -822,6 +880,8 @@
       date: "Aug 14",
       fullDate: "Aug 14, 2026 at 6:40 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#003791",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PlayStation Network</h3><p>Your digital purchase is confirmed.</p></div>`
     },
@@ -834,6 +894,8 @@
       date: "Aug 13",
       fullDate: "Aug 13, 2026 at 3:15 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#e50914",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Netflix Updates</h3><p>New shows and movies added this week.</p></div>`
     },
@@ -846,6 +908,8 @@
       date: "Aug 11",
       fullDate: "Aug 11, 2026 at 12:45 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#ff7300",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Whataburger Rewards</h3><p>120 points added to your account profile.</p></div>`
     },
@@ -858,6 +922,8 @@
       date: "Aug 10",
       fullDate: "Aug 10, 2026 at 4:20 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#003087",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PayPal Receipt</h3><p>Payment of $19.99 completed.</p></div>`
     },
@@ -870,6 +936,8 @@
       date: "Aug 9",
       fullDate: "Aug 9, 2026 at 9:00 AM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#117aca",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Chase Balance Alert</h3><p>Your weekly account overview is available.</p></div>`
     },
@@ -882,6 +950,8 @@
       date: "Aug 8",
       fullDate: "Aug 8, 2026 at 10:12 AM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#351c15",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>UPS Delivery</h3><p>Package delivered to front porch.</p></div>`
     },
@@ -894,6 +964,8 @@
       date: "Aug 6",
       fullDate: "Aug 6, 2026 at 5:22 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#fff100",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Best Buy In-Store</h3><p>Order receipt #BBY01-849102.</p></div>`
     },
@@ -906,6 +978,8 @@
       date: "Aug 5",
       fullDate: "Aug 5, 2026 at 11:30 AM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#e53238",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>eBay Shipping Notice</h3><p>Your trading card accessories have shipped.</p></div>`
     },
@@ -918,19 +992,23 @@
       date: "Aug 4",
       fullDate: "Aug 4, 2026 at 1:14 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#4d148c",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>FedEx Delivered</h3><p>Delivered on Aug 4, left at front door.</p></div>`
     },
     {
       id: 1,
-      sender: "noreply",
+      sender: "Round1 No Reply",
       senderEmail: "noreply@round1usa.com",
-      subject: "[Required for Pickup] Thanks for entering ONE PIECE CARD GAME - ROUND1 Promotion Pack - Phase 3",
-      snippet: "Congratulations! You're eligible to participate ONE PIECE CARD GAME -ROUND1 Promotion Pack-. Please read the instructions carefully...",
+      subject: "[Required for Pickup] Thanks for entering ONE...",
+      snippet: "Hi John Alzate, Congratulations! You're eligi...",
       date: "Aug 3",
       fullDate: "Aug 3, 2026 at 10:02 AM",
       unread: false,
-      avatarColor: "#e91e63",
+      starred: true,
+      useIconAvatar: true,
+      avatarColor: "#5f6368",
       htmlBody: `
         <div style="font-family: Helvetica, Arial, sans-serif; color: #e8eaed; line-height: 1.5; font-size: 15px;">
           <p style="margin-bottom: 12px;">
@@ -982,6 +1060,34 @@
       `
     },
     {
+      id: 601,
+      sender: "Sam's Club",
+      senderEmail: "samsclub@e.samsclub.com",
+      subject: "Don't sleep on these new member favorites!",
+      snippet: "Curated essentials and trending products you'...",
+      date: "Aug 3",
+      fullDate: "Aug 3, 2026 at 9:15 AM",
+      unread: false,
+      starred: false,
+      useIconAvatar: true,
+      avatarColor: "#5f6368",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Member Favorites</h2><p>Top picks for this month.</p></div>`
+    },
+    {
+      id: 602,
+      sender: "Sam's Club",
+      senderEmail: "samsclub@e.samsclub.com",
+      subject: "Still time for July Instant Savings* ⏰",
+      snippet: "Your cart wants these.",
+      date: "Aug 2",
+      fullDate: "Aug 2, 2026 at 3:45 PM",
+      unread: false,
+      starred: false,
+      useIconAvatar: true,
+      avatarColor: "#5f6368",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Instant Savings</h2><p>Limited-time member discounts.</p></div>`
+    },
+    {
       id: 103,
       sender: "Target Orders",
       senderEmail: "orders@target.com",
@@ -990,6 +1096,8 @@
       date: "Jul 29",
       fullDate: "Jul 29, 2026 at 2:19 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#d93025",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Order Confirmed</h2><p>Target Order #983419082.</p></div>`
     },
@@ -1002,6 +1110,8 @@
       date: "Jul 26",
       fullDate: "Jul 26, 2026 at 11:42 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#5865f2",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>New login detected</h3><p>Chrome on Windows in Texas.</p></div>`
     },
@@ -1014,128 +1124,10 @@
       date: "Jul 22",
       fullDate: "Jul 22, 2026 at 8:54 PM",
       unread: false,
+      starred: false,
+      useIconAvatar: false,
       avatarColor: "#06c167",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, John</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
-    },
-    {
-      id: 401,
-      sender: "Nike Store",
-      senderEmail: "nike@official.nike.com",
-      subject: "Your Nike order has been shipped",
-      snippet: "Gear up! Your order containing Nike Air Max sneakers has left our warehouse...",
-      date: "Jul 19",
-      fullDate: "Jul 19, 2026 at 10:15 AM",
-      unread: false,
-      avatarColor: "#111111",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Nike Order Shipped</h3><p>Tracking number: 1Z882910401829.</p></div>`
-    },
-    {
-      id: 402,
-      sender: "Costco Wholesale",
-      senderEmail: "costco@orders.costco.com",
-      subject: "Costco.com Order Confirmation #88219401",
-      snippet: "Thank you for your order! We have received your order and are currently processing it...",
-      date: "Jul 16",
-      fullDate: "Jul 16, 2026 at 4:32 PM",
-      unread: false,
-      avatarColor: "#005baa",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Costco Order Confirmation</h3><p>Order #88219401 processed.</p></div>`
-    },
-    {
-      id: 403,
-      sender: "Verizon Wireless",
-      senderEmail: "verizon@message.verizon.com",
-      subject: "Your Auto Pay payment has been processed",
-      snippet: "Your payment of $85.00 was successfully processed on July 14. View your latest bill breakdown...",
-      date: "Jul 14",
-      fullDate: "Jul 14, 2026 at 6:00 AM",
-      unread: false,
-      avatarColor: "#cd040b",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Auto Pay Successful</h3><p>Payment of $85.00 applied to account.</p></div>`
-    },
-    {
-      id: 404,
-      sender: "Twitch",
-      senderEmail: "no-reply@twitch.tv",
-      subject: "Your subscription to shroud has renewed",
-      snippet: "Thanks for continuing to support shroud with a Tier 1 recurring subscription...",
-      date: "Jul 11",
-      fullDate: "Jul 11, 2026 at 1:12 PM",
-      unread: false,
-      avatarColor: "#9146ff",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Twitch Sub Renewed</h3><p>Tier 1 sub renewed for 1 month.</p></div>`
-    },
-    {
-      id: 405,
-      sender: "Chipotle Rewards",
-      senderEmail: "rewards@chipotle.com",
-      subject: "Free Chips & Guac waiting in your account!",
-      snippet: "You unlocked a new badge! Claim your reward inside the Chipotle app before it expires...",
-      date: "Jul 8",
-      fullDate: "Jul 8, 2026 at 11:20 AM",
-      unread: false,
-      avatarColor: "#451400",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Chipotle Rewards</h3><p>Free Chips &amp; Guac with your next entree.</p></div>`
-    },
-    {
-      id: 406,
-      sender: "Starbucks",
-      senderEmail: "starbucks@rewards.starbucks.com",
-      subject: "Star reload complete: +$25.00",
-      snippet: "Your Starbucks Card auto-reloaded successfully. Your updated balance is $28.45...",
-      date: "Jul 5",
-      fullDate: "Jul 5, 2026 at 8:05 AM",
-      unread: false,
-      avatarColor: "#006241",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Starbucks Reload</h3><p>$25.00 added to primary card.</p></div>`
-    },
-    {
-      id: 407,
-      sender: "Google Photos",
-      senderEmail: "photos-noreply@google.com",
-      subject: "Rediscover this day: 2 years ago",
-      snippet: "Take a trip down memory lane! We created a new spotlight animation of your summer memories...",
-      date: "Jul 2",
-      fullDate: "Jul 2, 2026 at 7:30 AM",
-      unread: false,
-      avatarColor: "#4285f4",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Google Photos Memories</h3><p>Tap to view your July highlights.</p></div>`
-    },
-    {
-      id: 408,
-      sender: "Lyft Ride Receipt",
-      senderEmail: "no-reply@lyftmail.com",
-      subject: "Your ride with Carlos on Friday night",
-      snippet: "Total: $18.40. Thanks for riding with Lyft! Leave a tip or rate your driver inside...",
-      date: "Jun 28",
-      fullDate: "Jun 28, 2026 at 11:45 PM",
-      unread: false,
-      avatarColor: "#ff00bf",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Lyft Ride Summary</h3><p>Total: $18.40 paid with Apple Pay.</p></div>`
-    },
-    {
-      id: 409,
-      sender: "Reddit Digest",
-      senderEmail: "noreply@redditmail.com",
-      subject: "Trending on r/PokemonTCG today",
-      snippet: "Check out the top discussions, binder setups, and recent pull posts from the community...",
-      date: "Jun 25",
-      fullDate: "Jun 25, 2026 at 9:15 AM",
-      unread: false,
-      avatarColor: "#ff4500",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Reddit Top Posts</h3><p>Daily digest from your subscribed subreddits.</p></div>`
-    },
-    {
-      id: 410,
-      sender: "GameStop",
-      senderEmail: "news@gamestop.com",
-      subject: "Your PowerUp Rewards monthly certificate is here!",
-      snippet: "Your $5 monthly reward certificate is active and ready to use in store or online this month...",
-      date: "Jun 20",
-      fullDate: "Jun 20, 2026 at 10:00 AM",
-      unread: false,
-      avatarColor: "#e31837",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>GameStop Pro Reward</h3><p>$5 reward valid through end of month.</p></div>`
     }
   ];
 
@@ -1150,9 +1142,13 @@
       el.className = `email-item ${item.unread ? 'unread' : ''}`;
       el.onclick = () => openEmail(item.id);
 
+      const avatarContent = item.useIconAvatar 
+        ? `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`
+        : item.sender.charAt(0).toUpperCase();
+
       el.innerHTML = `
-        <div class="sender-avatar" style="background: ${item.avatarColor || '#e53935'};">
-          ${item.sender.charAt(0).toUpperCase()}
+        <div class="sender-avatar" style="background: ${item.avatarColor || '#5f6368'};">
+          ${avatarContent}
         </div>
         <div class="email-info">
           <div class="row-top">
@@ -1160,11 +1156,27 @@
             <div class="date-text">${item.date}</div>
           </div>
           <div class="subject-text">${item.subject}</div>
-          <div class="snippet-text">${item.snippet}</div>
+          <div class="snippet-row">
+            <div class="snippet-text">${item.snippet}</div>
+            <button class="star-btn ${item.starred ? 'starred' : ''}" onclick="toggleStar(event, ${item.id})">
+              <svg viewBox="0 0 24 24">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </button>
+          </div>
         </div>
       `;
       container.appendChild(el);
     });
+  }
+
+  function toggleStar(e, id) {
+    e.stopPropagation();
+    const item = inbox.find(x => x.id === id);
+    if (item) {
+      item.starred = !item.starred;
+      renderInbox();
+    }
   }
 
   function openEmail(id) {
@@ -1178,8 +1190,10 @@
     document.getElementById('read-title').innerText = item.subject;
     document.getElementById('read-sender').innerText = item.sender;
     document.getElementById('read-date-header').innerText = item.date;
-    document.getElementById('read-avatar').innerText = item.sender.charAt(0).toUpperCase();
-    document.getElementById('read-avatar').style.background = item.avatarColor || '#e53935';
+    document.getElementById('read-avatar').innerHTML = item.useIconAvatar 
+      ? `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`
+      : item.sender.charAt(0).toUpperCase();
+    document.getElementById('read-avatar').style.background = item.avatarColor || '#5f6368';
     document.getElementById('read-content').innerHTML = item.htmlBody;
 
     document.getElementById('card-from').innerText = item.senderEmail || item.sender;
