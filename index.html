@@ -16,7 +16,8 @@
       --text-primary: #e8eaed;
       --text-secondary: #9aa0a6;
       --accent-red: #ea4335;
-      --accent-blue: #8ab4f8;
+      --accent-blue: #0b57d0;
+      --accent-blue-btn: #0b57d0;
       --border-subtle: #2d2f31;
     }
 
@@ -46,6 +47,7 @@
       flex-direction: column;
     }
 
+    /* Fixed Top Area with Lower Search Position */
     .header-fixed-area {
       position: sticky;
       top: 0;
@@ -53,19 +55,19 @@
       width: 100%;
       background: #121212 !important;
       z-index: 40;
-      padding-top: env(safe-area-inset-top, 47px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
       flex-shrink: 0;
     }
 
     .search-chip {
-      margin: 4px 14px 6px;
+      margin: 4px 16px 8px;
       height: 48px;
       background: var(--bg-search) !important;
       border-radius: 24px;
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      gap: 12px;
+      padding: 0 16px;
+      gap: 14px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     }
 
@@ -83,15 +85,15 @@
     }
 
     .gmail-avatar {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: var(--accent-red);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
     }
 
@@ -101,17 +103,18 @@
       color: var(--text-secondary);
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      padding: 4px 20px 6px;
+      padding: 6px 20px 8px;
       background: #121212 !important;
       border-bottom: 0.5px solid var(--border-subtle);
     }
 
+    /* Scrollable Email List */
     .content-view {
       flex: 1;
       overflow-y: auto;
       background: #121212;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: env(safe-area-inset-bottom, 20px);
+      padding-bottom: 90px;
     }
 
     .email-item {
@@ -122,7 +125,7 @@
       cursor: pointer;
       align-items: flex-start;
       background: #121212;
-      transition: background 0.15s ease;
+      position: relative;
     }
 
     .email-item.unread {
@@ -203,6 +206,80 @@
       overflow: hidden;
     }
 
+    /* Floating Compose Pill */
+    .floating-compose {
+      position: absolute;
+      bottom: calc(env(safe-area-inset-bottom, 20px) + 65px);
+      right: 18px;
+      height: 52px;
+      padding: 0 20px;
+      border-radius: 16px;
+      background: #0b57d0;
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      z-index: 45;
+    }
+
+    .floating-compose svg {
+      width: 18px;
+      height: 18px;
+      fill: #ffffff;
+    }
+
+    /* Bottom iOS Navigation Bar */
+    .bottom-nav-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #000000;
+      border-top: 0.5px solid #222;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-top: 8px;
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+      z-index: 40;
+    }
+
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .nav-tab-pill {
+      width: 64px;
+      height: 32px;
+      border-radius: 16px;
+      background: #004a77;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-tab-pill svg {
+      width: 20px;
+      height: 20px;
+      fill: #c2e7ff;
+    }
+
+    .nav-tab-video svg {
+      width: 22px;
+      height: 22px;
+      fill: #c4c7c5;
+    }
+
     /* Detail / Reading View */
     .detail-view {
       position: fixed;
@@ -215,7 +292,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      padding-top: env(safe-area-inset-top, 47px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 4px);
       padding-bottom: env(safe-area-inset-bottom, 20px);
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
@@ -246,7 +323,7 @@
     .detail-body-container {
       flex: 1;
       overflow-y: auto;
-      padding: 16px;
+      padding: 16px 16px 40px;
       background: #121212;
       -webkit-overflow-scrolling: touch;
     }
@@ -302,7 +379,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      color: var(--accent-blue);
+      color: #8ab4f8;
       font-size: 14px;
       font-weight: 500;
     }
@@ -313,7 +390,7 @@
       letter-spacing: 1px;
     }
 
-    /* Expandable Sender Info Box */
+    /* Expandable Sender Details Card */
     .sender-details-card {
       display: none;
       background: #18191b;
@@ -351,7 +428,7 @@
     }
 
     .detail-field-val a {
-      color: var(--accent-blue);
+      color: #8ab4f8;
       text-decoration: none;
     }
 
@@ -379,7 +456,7 @@
     }
 
     .security-info a {
-      color: var(--accent-blue);
+      color: #8ab4f8;
       text-decoration: none;
       font-size: 13px;
     }
@@ -397,11 +474,124 @@
       height: auto !important;
       display: block;
     }
+
+    /* Email Action Buttons (Reply / Forward / Emoji) */
+    .email-action-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding-bottom: 10px;
+    }
+
+    .action-btn-pill {
+      flex: 1;
+      height: 44px;
+      border-radius: 22px;
+      border: 1px solid #3c4043;
+      background: #18191b;
+      color: #e8eaed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .action-btn-pill svg {
+      width: 16px;
+      height: 16px;
+      fill: #e8eaed;
+    }
+
+    .action-btn-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid #3c4043;
+      background: #18191b;
+      color: #e8eaed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .action-btn-circle svg {
+      width: 20px;
+      height: 20px;
+      fill: #e8eaed;
+    }
+
+    /* Compose Modal Window */
+    .compose-modal-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #121212;
+      z-index: 60;
+      display: none;
+      flex-direction: column;
+      padding-top: env(safe-area-inset-top, 47px);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    .compose-modal-screen.active {
+      display: flex;
+    }
+
+    .compose-header-bar {
+      height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 0.5px solid var(--border-subtle);
+    }
+
+    .compose-field-line {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 0.5px solid var(--border-subtle);
+      font-size: 14px;
+    }
+
+    .compose-field-line label {
+      color: var(--text-secondary);
+      width: 60px;
+    }
+
+    .compose-field-line input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+
+    .compose-body-area {
+      flex: 1;
+      padding: 16px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 15px;
+      resize: none;
+    }
   </style>
 </head>
 <body>
 
 <div class="app-container">
+  <!-- Fixed Header & Search -->
   <div class="header-fixed-area">
     <div class="search-chip">
       <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
@@ -411,10 +601,30 @@
     <div class="label-heading">Primary</div>
   </div>
 
+  <!-- Scrollable Mail List -->
   <div class="content-view">
     <div id="inbox-list"></div>
   </div>
 
+  <!-- Floating Compose Button -->
+  <button class="floating-compose" onclick="openCompose()">
+    <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+    <span>Compose</span>
+  </button>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-nav-bar">
+    <button class="nav-tab-btn">
+      <div class="nav-tab-pill">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+    </button>
+    <button class="nav-tab-btn nav-tab-video">
+      <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+    </button>
+  </div>
+
+  <!-- Detail / Reading View -->
   <div class="detail-view" id="detail-view">
     <div class="detail-nav">
       <button onclick="closeDetail()">←</button>
@@ -471,7 +681,44 @@
       </div>
 
       <div class="detail-html-content" id="read-content"></div>
+
+      <!-- Action Row: Reply / Forward / Emoji -->
+      <div class="email-action-row">
+        <button class="action-btn-pill" onclick="openCompose('Re: ')">
+          <svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+          <span>Reply</span>
+        </button>
+        <button class="action-btn-pill" onclick="openCompose('Fwd: ')">
+          <svg viewBox="0 0 24 24"><path d="M14 9v-4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg>
+          <span>Forward</span>
+        </button>
+        <button class="action-btn-circle">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+        </button>
+      </div>
     </div>
+  </div>
+
+  <!-- Compose Window Modal -->
+  <div class="compose-modal-screen" id="compose-modal">
+    <div class="compose-header-bar">
+      <button style="background:none; border:none; color:var(--text-secondary); font-size:20px;" onclick="closeCompose()">✕</button>
+      <span style="font-weight: 600;">Compose</span>
+      <button style="background:none; border:none; color:#8ab4f8; font-weight:700; font-size:15px;" onclick="closeCompose()">Send</button>
+    </div>
+    <div class="compose-field-line">
+      <label>From:</label>
+      <input type="text" value="quirozluisa313@gmail.com" />
+    </div>
+    <div class="compose-field-line">
+      <label>To:</label>
+      <input type="text" id="comp-to" placeholder="Recipients" />
+    </div>
+    <div class="compose-field-line">
+      <label>Subject:</label>
+      <input type="text" id="comp-subject" placeholder="Subject" />
+    </div>
+    <textarea class="compose-body-area" placeholder="Compose email"></textarea>
   </div>
 </div>
 
@@ -556,7 +803,6 @@
       subject: "Ready for Pickup: Your prescription is ready at CVS",
       snippet: "Your Rx order is ready at your local CVS Pharmacy located at 410 / San Pedro Ave. Store hours...",
       date: "11:15 AM",
-      fullDate: "Aug 16, 2026 at 11:15 AM",
       unread: true,
       avatarColor: "#cc0000",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>CVS Pharmacy</h3><p>Your Rx order ending in 4920 is ready for pickup.</p></div>`
@@ -942,12 +1188,10 @@
     document.getElementById('read-avatar').style.background = item.avatarColor || '#e53935';
     document.getElementById('read-content').innerHTML = item.htmlBody;
 
-    // Set expandable card values
     document.getElementById('card-from').innerText = item.senderEmail || item.sender;
     document.getElementById('card-to').innerText = "Hide My Email";
     document.getElementById('card-date').innerText = item.fullDate || `${item.date}, 2026`;
 
-    // Ensure dropdown starts closed
     document.getElementById('sender-card').classList.remove('active');
     document.getElementById('chevron-icon').innerText = '⌄';
 
@@ -983,6 +1227,25 @@
       x.snippet.toLowerCase().includes(term)
     );
     renderInbox(filtered);
+  }
+
+  function openCompose(prefix = '') {
+    const modal = document.getElementById('compose-modal');
+    modal.classList.add('active');
+    if (activeEmailId) {
+      const item = inbox.find(x => x.id === activeEmailId);
+      if (item) {
+        document.getElementById('comp-to').value = prefix ? item.senderEmail || item.sender : '';
+        document.getElementById('comp-subject').value = prefix ? prefix + item.subject : '';
+        return;
+      }
+    }
+    document.getElementById('comp-to').value = '';
+    document.getElementById('comp-subject').value = '';
+  }
+
+  function closeCompose() {
+    document.getElementById('compose-modal').classList.remove('active');
   }
 
   renderInbox();
