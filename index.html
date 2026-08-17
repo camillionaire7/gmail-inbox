@@ -740,6 +740,11 @@
       color: #ffffff;
     }
 
+    .compose-fwd-header a {
+      color: #8ab4f8;
+      text-decoration: none;
+    }
+
     .compose-fwd-html-content {
       font-size: 14px;
       line-height: 1.5;
@@ -1479,7 +1484,7 @@
             From: <strong>${item.sender}</strong> &lt;${item.senderEmail}&gt;<br>
             Date: ${item.fullDate}<br>
             Subject: ${item.subject}<br>
-            To: &lt;7cam7cam@gmail.com&gt;
+            To: &lt;<a href="#">Hide My Email</a>&gt;
           `;
           fwdContent.innerHTML = item.htmlBody;
           return;
