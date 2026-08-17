@@ -36,7 +36,6 @@
       overflow: hidden;
     }
 
-    /* Edge-to-Edge iPhone App Shell */
     .app-container {
       width: 100vw;
       height: 100vh;
@@ -47,7 +46,7 @@
       flex-direction: column;
     }
 
-    /* Fixed Sticky Top Section */
+    /* Tightened top header spacing */
     .header-fixed-area {
       position: sticky;
       top: 0;
@@ -55,14 +54,13 @@
       width: 100%;
       background: var(--bg-main);
       z-index: 40;
-      padding-top: env(safe-area-inset-top, 47px);
+      padding-top: max(env(safe-area-inset-top), 10px);
       flex-shrink: 0;
     }
 
-    /* Gmail Search Bar */
     .search-chip {
-      margin: 6px 16px 8px;
-      height: 48px;
+      margin: 2px 14px 6px;
+      height: 46px;
       background: var(--bg-search);
       border-radius: 24px;
       display: flex;
@@ -104,7 +102,7 @@
       color: var(--text-secondary);
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      padding: 4px 20px 8px;
+      padding: 4px 20px 6px;
       background: var(--bg-main);
       border-bottom: 0.5px solid var(--border-subtle);
     }
@@ -219,7 +217,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      padding-top: env(safe-area-inset-top, 47px);
+      padding-top: max(env(safe-area-inset-top), 10px);
       padding-bottom: env(safe-area-inset-bottom, 20px);
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
@@ -304,7 +302,6 @@
 <body>
 
 <div class="app-container">
-  <!-- Fixed Header & Search -->
   <div class="header-fixed-area">
     <div class="search-chip">
       <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
@@ -314,12 +311,10 @@
     <div class="label-heading">Primary</div>
   </div>
 
-  <!-- Scrollable Mail List -->
   <div class="content-view">
     <div id="inbox-list"></div>
   </div>
 
-  <!-- Reading View -->
   <div class="detail-view" id="detail-view">
     <div class="detail-nav">
       <button onclick="closeDetail()">←</button>
@@ -623,6 +618,116 @@
       unread: false,
       avatarColor: "#06c167",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, John</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
+    },
+    {
+      id: 401,
+      sender: "Nike Store",
+      senderEmail: "nike@official.nike.com",
+      subject: "Your Nike order has been shipped",
+      snippet: "Gear up! Your order containing Nike Air Max sneakers has left our warehouse...",
+      date: "Jul 19",
+      unread: false,
+      avatarColor: "#111111",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Nike Order Shipped</h3><p>Tracking number: 1Z882910401829.</p></div>`
+    },
+    {
+      id: 402,
+      sender: "Costco Wholesale",
+      senderEmail: "costco@orders.costco.com",
+      subject: "Costco.com Order Confirmation #88219401",
+      snippet: "Thank you for your order! We have received your order and are currently processing it...",
+      date: "Jul 16",
+      unread: false,
+      avatarColor: "#005baa",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Costco Order Confirmation</h3><p>Order #88219401 processed.</p></div>`
+    },
+    {
+      id: 403,
+      sender: "Verizon Wireless",
+      senderEmail: "verizon@message.verizon.com",
+      subject: "Your Auto Pay payment has been processed",
+      snippet: "Your payment of $85.00 was successfully processed on July 14. View your latest bill breakdown...",
+      date: "Jul 14",
+      unread: false,
+      avatarColor: "#cd040b",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Auto Pay Successful</h3><p>Payment of $85.00 applied to account.</p></div>`
+    },
+    {
+      id: 404,
+      sender: "Twitch",
+      senderEmail: "no-reply@twitch.tv",
+      subject: "Your subscription to shroud has renewed",
+      snippet: "Thanks for continuing to support shroud with a Tier 1 recurring subscription...",
+      date: "Jul 11",
+      unread: false,
+      avatarColor: "#9146ff",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Twitch Sub Renewed</h3><p>Tier 1 sub renewed for 1 month.</p></div>`
+    },
+    {
+      id: 405,
+      sender: "Chipotle Rewards",
+      senderEmail: "rewards@chipotle.com",
+      subject: "Free Chips & Guac waiting in your account!",
+      snippet: "You unlocked a new badge! Claim your reward inside the Chipotle app before it expires...",
+      date: "Jul 8",
+      unread: false,
+      avatarColor: "#451400",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Chipotle Rewards</h3><p>Free Chips &amp; Guac with your next entree.</p></div>`
+    },
+    {
+      id: 406,
+      sender: "Starbucks",
+      senderEmail: "starbucks@rewards.starbucks.com",
+      subject: "Star reload complete: +$25.00",
+      snippet: "Your Starbucks Card auto-reloaded successfully. Your updated balance is $28.45...",
+      date: "Jul 5",
+      unread: false,
+      avatarColor: "#006241",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Starbucks Reload</h3><p>$25.00 added to primary card.</p></div>`
+    },
+    {
+      id: 407,
+      sender: "Google Photos",
+      senderEmail: "photos-noreply@google.com",
+      subject: "Rediscover this day: 2 years ago",
+      snippet: "Take a trip down memory lane! We created a new spotlight animation of your summer memories...",
+      date: "Jul 2",
+      unread: false,
+      avatarColor: "#4285f4",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Google Photos Memories</h3><p>Tap to view your July highlights.</p></div>`
+    },
+    {
+      id: 408,
+      sender: "Lyft Ride Receipt",
+      senderEmail: "no-reply@lyftmail.com",
+      subject: "Your ride with Carlos on Friday night",
+      snippet: "Total: $18.40. Thanks for riding with Lyft! Leave a tip or rate your driver inside...",
+      date: "Jun 28",
+      unread: false,
+      avatarColor: "#ff00bf",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Lyft Ride Summary</h3><p>Total: $18.40 paid with Apple Pay.</p></div>`
+    },
+    {
+      id: 409,
+      sender: "Reddit Digest",
+      senderEmail: "noreply@redditmail.com",
+      subject: "Trending on r/PokemonTCG today",
+      snippet: "Check out the top discussions, binder setups, and recent pull posts from the community...",
+      date: "Jun 25",
+      unread: false,
+      avatarColor: "#ff4500",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Reddit Top Posts</h3><p>Daily digest from your subscribed subreddits.</p></div>`
+    },
+    {
+      id: 410,
+      sender: "GameStop",
+      senderEmail: "news@gamestop.com",
+      subject: "Your PowerUp Rewards monthly certificate is here!",
+      snippet: "Your $5 monthly reward certificate is active and ready to use in store or online this month...",
+      date: "Jun 20",
+      unread: false,
+      avatarColor: "#e31837",
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>GameStop Pro Reward</h3><p>$5 reward valid through end of month.</p></div>`
     }
   ];
 
