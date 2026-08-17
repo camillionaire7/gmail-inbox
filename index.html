@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#121212" />
   <title>Gmail</title>
   <style>
@@ -26,7 +26,6 @@
       padding: 0;
       -webkit-tap-highlight-color: transparent;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Google Sans", Roboto, Helvetica, Arial, sans-serif;
-      touch-action: manipulation;
     }
 
     html, body {
@@ -35,7 +34,6 @@
       background: #121212 !important;
       color: var(--text-primary);
       overflow: hidden;
-      position: fixed;
     }
 
     .app-container {
@@ -45,20 +43,19 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
 
-    /* Fixed Top Area Dropped to Red Line */
+    /* Fixed Top Area */
     .header-fixed-area {
       width: 100%;
       background: #121212 !important;
       z-index: 40;
-      padding-top: calc(env(safe-area-inset-top, 47px) + 20px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 2px);
       flex-shrink: 0;
     }
 
     .search-chip {
-      margin: 0 16px 8px;
+      margin: 2px 14px 6px;
       height: 48px;
       background: var(--bg-search) !important;
       border-radius: 24px;
@@ -112,7 +109,7 @@
       overflow-y: auto;
       background: #121212;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 75px;
+      padding-bottom: 70px;
     }
 
     .email-item {
@@ -146,7 +143,6 @@
     .email-info {
       flex: 1;
       min-width: 0;
-      pointer-events: none;
     }
 
     .row-top {
@@ -291,7 +287,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      padding-top: calc(env(safe-area-inset-top, 47px) + 16px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 2px);
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
 
@@ -603,7 +599,7 @@
   </div>
 
   <!-- Scrollable Mail List -->
-  <div class="content-view" id="content-view">
+  <div class="content-view">
     <div id="inbox-list"></div>
   </div>
 
@@ -1156,8 +1152,8 @@
     data.forEach(item => {
       const el = document.createElement('div');
       el.className = `email-item ${item.unread ? 'unread' : ''}`;
-      el.dataset.id = item.id;
-      
+      el.onclick = () => openEmail(item.id);
+
       el.innerHTML = `
         <div class="sender-avatar" style="background: ${item.avatarColor || '#e53935'};">
           ${item.sender.charAt(0).toUpperCase()}
@@ -1174,14 +1170,6 @@
       container.appendChild(el);
     });
   }
-
-  // Direct delegation using pointerup to prevent WebKit coordinate latency
-  document.getElementById('inbox-list').addEventListener('pointerup', function(e) {
-    const itemEl = e.target.closest('.email-item');
-    if (itemEl && itemEl.dataset.id) {
-      openEmail(parseInt(itemEl.dataset.id, 10));
-    }
-  });
 
   function openEmail(id) {
     activeEmailId = id;
