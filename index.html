@@ -46,7 +46,6 @@
       flex-direction: column;
     }
 
-    /* Solid Fixed Header with Zero Translucency */
     .header-fixed-area {
       position: sticky;
       top: 0;
@@ -56,8 +55,6 @@
       z-index: 40;
       padding-top: env(safe-area-inset-top, 47px);
       flex-shrink: 0;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
     }
 
     .search-chip {
@@ -70,7 +67,6 @@
       padding: 0 14px;
       gap: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-      opacity: 1 !important;
     }
 
     .search-chip input {
@@ -110,7 +106,6 @@
       border-bottom: 0.5px solid var(--border-subtle);
     }
 
-    /* Scrollable Email List */
     .content-view {
       flex: 1;
       overflow-y: auto;
@@ -266,25 +261,127 @@
 
     .detail-meta-chip {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .meta-col {
       flex: 1;
       min-width: 0;
+      cursor: pointer;
+    }
+
+    .meta-top-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
     }
 
     .meta-sender {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-primary);
     }
 
-    .meta-to {
-      font-size: 12px;
+    .meta-date {
+      font-size: 13px;
       color: var(--text-secondary);
+    }
+
+    .meta-to-row {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 1px;
+    }
+
+    .meta-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--accent-blue);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .meta-actions-right span.dots {
+      color: var(--text-secondary);
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    /* Expandable Sender Info Box */
+    .sender-details-card {
+      display: none;
+      background: #18191b;
+      border: 1px solid #2f3136;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 13.5px;
+    }
+
+    .sender-details-card.active {
+      display: block;
+    }
+
+    .detail-field-row {
+      display: flex;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+
+    .detail-field-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-field-label {
+      width: 65px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .detail-field-val {
+      flex: 1;
+      color: var(--text-primary);
+      word-break: break-all;
+    }
+
+    .detail-field-val a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .security-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 0.5px solid #282a2d;
+    }
+
+    .security-lock {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .security-info {
+      flex: 1;
+    }
+
+    .security-info div {
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .security-info a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-size: 13px;
     }
 
     .detail-html-content {
@@ -329,13 +426,50 @@
     </div>
     <div class="detail-body-container">
       <div class="detail-title" id="read-title"></div>
+      
       <div class="detail-meta-chip">
-        <div class="sender-avatar" id="read-avatar">R</div>
-        <div class="meta-col">
-          <div class="meta-sender" id="read-sender"></div>
-          <div class="meta-to">to Hide My Email</div>
+        <div class="sender-avatar" id="read-avatar">N</div>
+        <div class="meta-col" onclick="toggleSenderCard()">
+          <div class="meta-top-row">
+            <span class="meta-sender" id="read-sender">noreply</span>
+            <span class="meta-date" id="read-date-header">Aug 3</span>
+          </div>
+          <div class="meta-to-row">
+            <span>to me</span>
+            <span id="chevron-icon" style="font-size: 11px;">⌄</span>
+          </div>
+        </div>
+        <div class="meta-actions-right">
+          <span>Unsubscribe</span>
+          <span class="dots">•••</span>
         </div>
       </div>
+
+      <!-- Expandable Sender Details Card -->
+      <div class="sender-details-card" id="sender-card">
+        <div class="detail-field-row">
+          <span class="detail-field-label">From</span>
+          <span class="detail-field-val" id="card-from">noreply@round1usa.com</span>
+        </div>
+        <div class="detail-field-row">
+          <span class="detail-field-label">To</span>
+          <span class="detail-field-val">
+            <a href="#" id="card-to">Hide My Email</a>
+          </span>
+        </div>
+        <div class="detail-field-row">
+          <span class="detail-field-label">Date</span>
+          <span class="detail-field-val" id="card-date">Aug 3, 2026 at 10:02 AM</span>
+        </div>
+        <div class="security-row">
+          <span class="security-lock">🔒</span>
+          <div class="security-info">
+            <div>Standard encryption (TLS)</div>
+            <a href="#">Learn more</a>
+          </div>
+        </div>
+      </div>
+
       <div class="detail-html-content" id="read-content"></div>
     </div>
   </div>
@@ -350,6 +484,7 @@
       subject: "Your receipt from Apple Store",
       snippet: "Apple Store receipt: $10.81. Payment Method: Apple Card (Mastercard .... 8821)...",
       date: "9:18 PM",
+      fullDate: "Aug 16, 2026 at 9:18 PM",
       unread: true,
       avatarColor: "#5f6368",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Apple Pay Receipt</h3><p>Amount: $10.81 paid to Apple Services.</p></div>`
@@ -361,6 +496,7 @@
       subject: "Your order from Chipotle Mexican Grill is on its way!",
       snippet: "Your Dasher is heading to the store. Track your burrito bowl delivery live...",
       date: "8:05 PM",
+      fullDate: "Aug 16, 2026 at 8:05 PM",
       unread: true,
       avatarColor: "#eb1700",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>DoorDash Delivery</h3><p>Your driver is on the way with your order.</p></div>`
@@ -372,6 +508,7 @@
       subject: "USPS Expected Delivery Update: 94001118992231",
       snippet: "Your package is on schedule to arrive tomorrow, Monday, August 17. Status: In Transit...",
       date: "7:12 PM",
+      fullDate: "Aug 16, 2026 at 7:12 PM",
       unread: true,
       avatarColor: "#004b87",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>USPS Tracking</h3><p>Package arriving Monday, August 17.</p></div>`
@@ -383,6 +520,7 @@
       subject: "Your H-E-B order is confirmed for pickup!",
       snippet: "Thanks for placing your order! Pickup slot reserved: Monday 10:00 AM - 10:30 AM at San Pedro...",
       date: "5:05 PM",
+      fullDate: "Aug 16, 2026 at 5:05 PM",
       unread: false,
       avatarColor: "#c62828",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>H-E-B Curbside</h3><p>Pickup reserved for Monday morning.</p></div>`
@@ -394,6 +532,7 @@
       subject: "Delivered: Your Amazon package with Ultra PRO Toploaders...",
       snippet: "Your package has been delivered. It was handed directly to a resident or placed in your safe parcel box...",
       date: "2:42 PM",
+      fullDate: "Aug 16, 2026 at 2:42 PM",
       unread: false,
       avatarColor: "#ff9900",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Delivered</h3><p>Order #114-8923171-4820194 delivered at 2:38 PM.</p></div>`
@@ -405,6 +544,7 @@
       subject: "Thank you for your Steam purchase!",
       snippet: "An item on your Steam wishlist is on sale! Also attached is your digital receipt for transaction...",
       date: "1:18 PM",
+      fullDate: "Aug 16, 2026 at 1:18 PM",
       unread: false,
       avatarColor: "#171a21",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Steam Order</h3><p>Receipt for wallet top-up.</p></div>`
@@ -416,6 +556,7 @@
       subject: "Ready for Pickup: Your prescription is ready at CVS",
       snippet: "Your Rx order is ready at your local CVS Pharmacy located at 410 / San Pedro Ave. Store hours...",
       date: "11:15 AM",
+      fullDate: "Aug 16, 2026 at 11:15 AM",
       unread: true,
       avatarColor: "#cc0000",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>CVS Pharmacy</h3><p>Your Rx order ending in 4920 is ready for pickup.</p></div>`
@@ -427,6 +568,7 @@
       subject: "Your Spotify Premium receipt for August",
       snippet: "We've received your monthly subscription payment of $11.99. Thanks for jamming with us...",
       date: "Aug 15",
+      fullDate: "Aug 15, 2026 at 8:10 AM",
       unread: false,
       avatarColor: "#1db954",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Spotify Premium</h3><p>Receipt for August monthly plan.</p></div>`
@@ -438,6 +580,7 @@
       subject: "Thank You For Your Purchase",
       snippet: "We acknowledge receipt of your order. Funds have been deducted from your PSN wallet balance...",
       date: "Aug 14",
+      fullDate: "Aug 14, 2026 at 6:40 PM",
       unread: false,
       avatarColor: "#003791",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PlayStation Network</h3><p>Your digital purchase is confirmed.</p></div>`
@@ -449,6 +592,7 @@
       subject: "Coming this Friday: New releases for your watchlist",
       snippet: "Check out what's trending this week on Netflix based on your recent viewing history...",
       date: "Aug 13",
+      fullDate: "Aug 13, 2026 at 3:15 PM",
       unread: false,
       avatarColor: "#e50914",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Netflix Updates</h3><p>New shows and movies added this week.</p></div>`
@@ -460,6 +604,7 @@
       subject: "You've earned free rewards points!",
       snippet: "Your recent visit added 120 points to your account. You are now only 80 points away from a reward...",
       date: "Aug 11",
+      fullDate: "Aug 11, 2026 at 12:45 PM",
       unread: false,
       avatarColor: "#ff7300",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Whataburger Rewards</h3><p>120 points added to your account profile.</p></div>`
@@ -471,6 +616,7 @@
       subject: "Receipt for your payment to Nintendo of America",
       snippet: "You sent a payment of $19.99 USD to Nintendo of America Inc. View transaction details...",
       date: "Aug 10",
+      fullDate: "Aug 10, 2026 at 4:20 PM",
       unread: false,
       avatarColor: "#003087",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PayPal Receipt</h3><p>Payment of $19.99 completed.</p></div>`
@@ -482,6 +628,7 @@
       subject: "Your weekly account balance summary",
       snippet: "Here is the summary of your checking and savings balances as of August 9, 2026...",
       date: "Aug 9",
+      fullDate: "Aug 9, 2026 at 9:00 AM",
       unread: false,
       avatarColor: "#117aca",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Chase Balance Alert</h3><p>Your weekly account overview is available.</p></div>`
@@ -493,6 +640,7 @@
       subject: "UPS Delivery Notification: Package scheduled for delivery",
       snippet: "Tracking Number 1Z9999999999999999. Estimated time of delivery between 1:00 PM and 5:00 PM...",
       date: "Aug 8",
+      fullDate: "Aug 8, 2026 at 10:12 AM",
       unread: false,
       avatarColor: "#351c15",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>UPS Delivery</h3><p>Package delivered to front porch.</p></div>`
@@ -504,6 +652,7 @@
       subject: "Your digital receipt for Order #BBY01-849102",
       snippet: "Thanks for shopping in store! Here is a digital copy of your purchase receipt for your records...",
       date: "Aug 6",
+      fullDate: "Aug 6, 2026 at 5:22 PM",
       unread: false,
       avatarColor: "#fff100",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Best Buy In-Store</h3><p>Order receipt #BBY01-849102.</p></div>`
@@ -515,6 +664,7 @@
       subject: "Your item has shipped! (Tracking attached)",
       snippet: "Great news! The seller has shipped your order: Japanese Booster Pack Case (10 Count)...",
       date: "Aug 5",
+      fullDate: "Aug 5, 2026 at 11:30 AM",
       unread: false,
       avatarColor: "#e53238",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>eBay Shipping Notice</h3><p>Your trading card accessories have shipped.</p></div>`
@@ -526,19 +676,21 @@
       subject: "FedEx Shipment Delivered: Signature Received",
       snippet: "Your FedEx shipment with tracking number 773918291032 was delivered to your address...",
       date: "Aug 4",
+      fullDate: "Aug 4, 2026 at 1:14 PM",
       unread: false,
       avatarColor: "#4d148c",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>FedEx Delivered</h3><p>Delivered on Aug 4, left at front door.</p></div>`
     },
     {
       id: 1,
-      sender: "Round1 No Reply",
+      sender: "noreply",
       senderEmail: "noreply@round1usa.com",
       subject: "[Required for Pickup] Thanks for entering ONE PIECE CARD GAME - ROUND1 Promotion Pack - Phase 3",
       snippet: "Congratulations! You're eligible to participate ONE PIECE CARD GAME -ROUND1 Promotion Pack-. Please read the instructions carefully...",
       date: "Aug 3",
+      fullDate: "Aug 3, 2026 at 10:02 AM",
       unread: false,
-      avatarColor: "#e53935",
+      avatarColor: "#e91e63",
       htmlBody: `
         <div style="font-family: Helvetica, Arial, sans-serif; color: #e8eaed; line-height: 1.5; font-size: 15px;">
           <p style="margin-bottom: 12px;">
@@ -596,6 +748,7 @@
       subject: "Thanks for your order! (Order #983419082)",
       snippet: "We're preparing your order for shipping. We'll send tracking information as soon as your items leave our facility...",
       date: "Jul 29",
+      fullDate: "Jul 29, 2026 at 2:19 PM",
       unread: false,
       avatarColor: "#d93025",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Order Confirmed</h2><p>Target Order #983419082.</p></div>`
@@ -607,6 +760,7 @@
       subject: "New login to Discord from Chrome on Windows",
       snippet: "Your Discord account was recently logged into from a new IP address located in Texas, United States...",
       date: "Jul 26",
+      fullDate: "Jul 26, 2026 at 11:42 PM",
       unread: false,
       avatarColor: "#5865f2",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>New login detected</h3><p>Chrome on Windows in Texas.</p></div>`
@@ -618,6 +772,7 @@
       subject: "Your Saturday evening receipt with Uber Eats",
       snippet: "Total: $24.85. Thanks for ordering, John! Here is the detailed breakdown of your food delivery order...",
       date: "Jul 22",
+      fullDate: "Jul 22, 2026 at 8:54 PM",
       unread: false,
       avatarColor: "#06c167",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, John</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
@@ -629,6 +784,7 @@
       subject: "Your Nike order has been shipped",
       snippet: "Gear up! Your order containing Nike Air Max sneakers has left our warehouse...",
       date: "Jul 19",
+      fullDate: "Jul 19, 2026 at 10:15 AM",
       unread: false,
       avatarColor: "#111111",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Nike Order Shipped</h3><p>Tracking number: 1Z882910401829.</p></div>`
@@ -640,6 +796,7 @@
       subject: "Costco.com Order Confirmation #88219401",
       snippet: "Thank you for your order! We have received your order and are currently processing it...",
       date: "Jul 16",
+      fullDate: "Jul 16, 2026 at 4:32 PM",
       unread: false,
       avatarColor: "#005baa",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Costco Order Confirmation</h3><p>Order #88219401 processed.</p></div>`
@@ -651,6 +808,7 @@
       subject: "Your Auto Pay payment has been processed",
       snippet: "Your payment of $85.00 was successfully processed on July 14. View your latest bill breakdown...",
       date: "Jul 14",
+      fullDate: "Jul 14, 2026 at 6:00 AM",
       unread: false,
       avatarColor: "#cd040b",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Auto Pay Successful</h3><p>Payment of $85.00 applied to account.</p></div>`
@@ -662,6 +820,7 @@
       subject: "Your subscription to shroud has renewed",
       snippet: "Thanks for continuing to support shroud with a Tier 1 recurring subscription...",
       date: "Jul 11",
+      fullDate: "Jul 11, 2026 at 1:12 PM",
       unread: false,
       avatarColor: "#9146ff",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Twitch Sub Renewed</h3><p>Tier 1 sub renewed for 1 month.</p></div>`
@@ -673,6 +832,7 @@
       subject: "Free Chips & Guac waiting in your account!",
       snippet: "You unlocked a new badge! Claim your reward inside the Chipotle app before it expires...",
       date: "Jul 8",
+      fullDate: "Jul 8, 2026 at 11:20 AM",
       unread: false,
       avatarColor: "#451400",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Chipotle Rewards</h3><p>Free Chips &amp; Guac with your next entree.</p></div>`
@@ -684,6 +844,7 @@
       subject: "Star reload complete: +$25.00",
       snippet: "Your Starbucks Card auto-reloaded successfully. Your updated balance is $28.45...",
       date: "Jul 5",
+      fullDate: "Jul 5, 2026 at 8:05 AM",
       unread: false,
       avatarColor: "#006241",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Starbucks Reload</h3><p>$25.00 added to primary card.</p></div>`
@@ -695,6 +856,7 @@
       subject: "Rediscover this day: 2 years ago",
       snippet: "Take a trip down memory lane! We created a new spotlight animation of your summer memories...",
       date: "Jul 2",
+      fullDate: "Jul 2, 2026 at 7:30 AM",
       unread: false,
       avatarColor: "#4285f4",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Google Photos Memories</h3><p>Tap to view your July highlights.</p></div>`
@@ -706,6 +868,7 @@
       subject: "Your ride with Carlos on Friday night",
       snippet: "Total: $18.40. Thanks for riding with Lyft! Leave a tip or rate your driver inside...",
       date: "Jun 28",
+      fullDate: "Jun 28, 2026 at 11:45 PM",
       unread: false,
       avatarColor: "#ff00bf",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Lyft Ride Summary</h3><p>Total: $18.40 paid with Apple Pay.</p></div>`
@@ -717,6 +880,7 @@
       subject: "Trending on r/PokemonTCG today",
       snippet: "Check out the top discussions, binder setups, and recent pull posts from the community...",
       date: "Jun 25",
+      fullDate: "Jun 25, 2026 at 9:15 AM",
       unread: false,
       avatarColor: "#ff4500",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>Reddit Top Posts</h3><p>Daily digest from your subscribed subreddits.</p></div>`
@@ -728,6 +892,7 @@
       subject: "Your PowerUp Rewards monthly certificate is here!",
       snippet: "Your $5 monthly reward certificate is active and ready to use in store or online this month...",
       date: "Jun 20",
+      fullDate: "Jun 20, 2026 at 10:00 AM",
       unread: false,
       avatarColor: "#e31837",
       htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>GameStop Pro Reward</h3><p>$5 reward valid through end of month.</p></div>`
@@ -772,15 +937,33 @@
 
     document.getElementById('read-title').innerText = item.subject;
     document.getElementById('read-sender').innerText = item.sender;
+    document.getElementById('read-date-header').innerText = item.date;
     document.getElementById('read-avatar').innerText = item.sender.charAt(0).toUpperCase();
     document.getElementById('read-avatar').style.background = item.avatarColor || '#e53935';
     document.getElementById('read-content').innerHTML = item.htmlBody;
 
+    // Set expandable card values
+    document.getElementById('card-from').innerText = item.senderEmail || item.sender;
+    document.getElementById('card-to').innerText = "Hide My Email";
+    document.getElementById('card-date').innerText = item.fullDate || `${item.date}, 2026`;
+
+    // Ensure dropdown starts closed
+    document.getElementById('sender-card').classList.remove('active');
+    document.getElementById('chevron-icon').innerText = '⌄';
+
     document.getElementById('detail-view').classList.add('active');
+  }
+
+  function toggleSenderCard() {
+    const card = document.getElementById('sender-card');
+    const chevron = document.getElementById('chevron-icon');
+    const isOpen = card.classList.toggle('active');
+    chevron.innerText = isOpen ? '⌃' : '⌄';
   }
 
   function closeDetail() {
     document.getElementById('detail-view').classList.remove('active');
+    document.getElementById('sender-card').classList.remove('active');
     activeEmailId = null;
   }
 
