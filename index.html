@@ -312,7 +312,7 @@
       fill: #c4c7c5;
     }
 
-    /* Detail View */
+    /* Detail View with Interactive iOS Edge Swipe */
     .detail-view {
       position: absolute;
       top: 0;
@@ -324,11 +324,16 @@
       display: flex;
       flex-direction: column;
       padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
-      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
+      box-shadow: -6px 0 20px rgba(0, 0, 0, 0.6);
+      will-change: transform;
     }
 
     .detail-view.active {
       transform: translateX(-100%);
+    }
+
+    .detail-view.animating {
+      transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
 
     .detail-nav {
@@ -1187,6 +1192,10 @@
     item.unread = false;
     renderInbox();
 
+    const detailView = document.getElementById('detail-view');
+    detailView.classList.add('animating');
+    detailView.style.transform = '';
+
     document.getElementById('read-title').innerText = item.subject;
     document.getElementById('read-sender').innerText = item.sender;
     document.getElementById('read-date-header').innerText = item.date;
@@ -1203,7 +1212,7 @@
     document.getElementById('sender-card').classList.remove('active');
     document.getElementById('chevron-icon').innerText = '⌄';
 
-    document.getElementById('detail-view').classList.add('active');
+    detailView.classList.add('active');
   }
 
   function toggleSenderCard() {
@@ -1214,7 +1223,10 @@
   }
 
   function closeDetail() {
-    document.getElementById('detail-view').classList.remove('active');
+    const detailView = document.getElementById('detail-view');
+    detailView.classList.add('animating');
+    detailView.style.transform = '';
+    detailView.classList.remove('active');
     document.getElementById('sender-card').classList.remove('active');
     activeEmailId = null;
   }
@@ -1255,6 +1267,44 @@
   function closeCompose() {
     document.getElementById('compose-modal').classList.remove('active');
   }
+
+  /* Interactive iOS Edge Swipe-to-Back */
+  const detailEl = document.getElementById('detail-view');
+  let startX = 0;
+  let currentX = 0;
+  let isSwiping = false;
+
+  window.addEventListener('touchstart', (e) => {
+    if (!activeEmailId || !detailEl.classList.contains('active')) return;
+    const touch = e.touches[0];
+    if (touch.clientX <= 44) {
+      startX = touch.clientX;
+      currentX = startX;
+      isSwiping = true;
+      detailEl.classList.remove('animating');
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+    currentX = e.touches[0].clientX;
+    const deltaX = currentX - startX;
+    if (deltaX > 0) {
+      detailEl.style.transform = `translateX(calc(-100% + ${deltaX}px))`;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    if (!isSwiping) return;
+    isSwiping = false;
+    detailEl.classList.add('animating');
+    const deltaX = currentX - startX;
+    if (deltaX > 90) {
+      closeDetail();
+    } else {
+      detailEl.style.transform = 'translateX(-100%)';
+    }
+  }, { passive: true });
 
   renderInbox();
 </script>
