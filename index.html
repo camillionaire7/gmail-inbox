@@ -16,8 +16,7 @@
       --text-primary: #e8eaed;
       --text-secondary: #9aa0a6;
       --accent-red: #ea4335;
-      --accent-blue: #0b57d0;
-      --accent-blue-btn: #0b57d0;
+      --accent-blue: #8ab4f8;
       --border-subtle: #2d2f31;
     }
 
@@ -47,7 +46,7 @@
       flex-direction: column;
     }
 
-    /* Fixed Top Area with Lower Search Position */
+    /* Fixed Top Area with Lower Search Position & Zero Blur */
     .header-fixed-area {
       position: sticky;
       top: 0;
@@ -55,12 +54,14 @@
       width: 100%;
       background: #121212 !important;
       z-index: 40;
-      padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 12px);
       flex-shrink: 0;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .search-chip {
-      margin: 4px 16px 8px;
+      margin: 2px 16px 8px;
       height: 48px;
       background: var(--bg-search) !important;
       border-radius: 24px;
@@ -114,7 +115,7 @@
       overflow-y: auto;
       background: #121212;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 90px;
+      padding-bottom: 95px;
     }
 
     .email-item {
@@ -292,7 +293,7 @@
       z-index: 50;
       display: flex;
       flex-direction: column;
-      padding-top: calc(env(safe-area-inset-top, 47px) + 4px);
+      padding-top: calc(env(safe-area-inset-top, 47px) + 8px);
       padding-bottom: env(safe-area-inset-bottom, 20px);
       transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.42, 1);
     }
