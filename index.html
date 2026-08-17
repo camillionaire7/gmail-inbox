@@ -36,7 +36,7 @@
       overflow: hidden;
     }
 
-    /* Edge-to-Edge iPhone App Container */
+    /* Edge-to-Edge iPhone App Shell */
     .app-container {
       width: 100vw;
       height: 100vh;
@@ -45,14 +45,23 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      /* Dynamic Island / Status bar padding */
+    }
+
+    /* Fixed Sticky Top Section */
+    .header-fixed-area {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg-main);
+      z-index: 40;
       padding-top: env(safe-area-inset-top, 47px);
-      padding-bottom: env(safe-area-inset-bottom, 20px);
+      flex-shrink: 0;
     }
 
     /* Gmail Search Bar */
     .search-chip {
-      margin: 8px 16px 10px;
+      margin: 6px 16px 8px;
       height: 48px;
       background: var(--bg-search);
       border-radius: 24px;
@@ -61,7 +70,6 @@
       padding: 0 14px;
       gap: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-      flex-shrink: 0;
     }
 
     .search-chip input {
@@ -96,16 +104,18 @@
       color: var(--text-secondary);
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      padding: 4px 20px 6px;
-      flex-shrink: 0;
+      padding: 4px 20px 8px;
+      background: var(--bg-main);
+      border-bottom: 0.5px solid var(--border-subtle);
     }
 
-    /* Email Items List */
+    /* Scrollable Email List */
     .content-view {
       flex: 1;
       overflow-y: auto;
       background: var(--bg-main);
       -webkit-overflow-scrolling: touch;
+      padding-bottom: env(safe-area-inset-bottom, 20px);
     }
 
     .email-item {
@@ -225,6 +235,7 @@
       align-items: center;
       padding: 0 16px;
       border-bottom: 0.5px solid var(--border-subtle);
+      background: var(--bg-main);
       flex-shrink: 0;
     }
 
@@ -293,16 +304,17 @@
 <body>
 
 <div class="app-container">
-  <!-- Search Header -->
-  <div class="search-chip">
-    <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
-    <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
-    <div class="gmail-avatar">Q</div>
+  <!-- Fixed Header & Search -->
+  <div class="header-fixed-area">
+    <div class="search-chip">
+      <span style="color: var(--text-secondary); font-size: 18px;">☰</span>
+      <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
+      <div class="gmail-avatar">Q</div>
+    </div>
+    <div class="label-heading">Primary</div>
   </div>
 
-  <div class="label-heading">Primary</div>
-
-  <!-- Mail List -->
+  <!-- Scrollable Mail List -->
   <div class="content-view">
     <div id="inbox-list"></div>
   </div>
@@ -334,66 +346,51 @@
 <script>
   let inbox = [
     {
-      id: 201,
+      id: 301,
       sender: "Apple Pay",
       senderEmail: "applepay@insideapple.apple.com",
       subject: "Your receipt from Apple Store",
       snippet: "Apple Store receipt: $10.81. Payment Method: Apple Card (Mastercard .... 8821)...",
-      date: "8:44 PM",
+      date: "9:18 PM",
       unread: true,
       avatarColor: "#5f6368",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px; line-height: 1.5;">
-          <h2 style="font-size: 18px; margin-bottom: 12px; color: #ffffff;">Apple Pay Receipt</h2>
-          <div style="background: #1e1e1e; padding: 14px; border-radius: 8px; border: 1px solid #333; margin-bottom: 12px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <span>Total Paid</span>
-              <strong style="color:#ffffff;">$10.81</strong>
-            </div>
-            <div style="font-size: 13px; color: #9aa0a6;">Apple Card (Mastercard .... 8821)</div>
-            <div style="font-size: 13px; color: #9aa0a6; margin-top: 4px;">August 16, 2026 at 8:42 PM</div>
-          </div>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Apple Pay Receipt</h3><p>Amount: $10.81 paid to Apple Services.</p></div>`
     },
     {
-      id: 202,
+      id: 302,
+      sender: "DoorDash",
+      senderEmail: "no-reply@doordash.com",
+      subject: "Your order from Chipotle Mexican Grill is on its way!",
+      snippet: "Your Dasher is heading to the store. Track your burrito bowl delivery live...",
+      date: "8:05 PM",
+      unread: true,
+      avatarColor: "#eb1700",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>DoorDash Delivery</h3><p>Your driver is on the way with your order.</p></div>`
+    },
+    {
+      id: 303,
       sender: "USPS Tracking",
       senderEmail: "auto-reply@usps.com",
-      subject: "USPS Expected Delivery by Tomorrow: 94001118992231",
-      snippet: "Your package is on schedule to arrive by tomorrow, Monday, August 17. Tracking number...",
+      subject: "USPS Expected Delivery Update: 94001118992231",
+      snippet: "Your package is on schedule to arrive tomorrow, Monday, August 17. Status: In Transit...",
       date: "7:12 PM",
       unread: true,
       avatarColor: "#004b87",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h3 style="color: #8ab4f8; margin-bottom: 8px;">USPS Tracking Update</h3>
-          <p>Your item is in transit to the destination facility.</p>
-          <div style="background: #1e1e1e; padding: 12px; border-radius: 6px; margin: 12px 0; border: 1px solid #333;">
-            <strong>Expected Delivery:</strong> Monday, August 17<br />
-            <strong>Status:</strong> In Transit to Next Facility
-          </div>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>USPS Tracking</h3><p>Package arriving Monday, August 17.</p></div>`
     },
     {
-      id: 203,
+      id: 304,
       sender: "H-E-B Curbside",
       senderEmail: "orders@heb.com",
       subject: "Your H-E-B order is confirmed for pickup!",
-      snippet: "Thanks for placing your order! Pickup slot reserved: Monday 10:00 AM - 10:30 AM at...",
+      snippet: "Thanks for placing your order! Pickup slot reserved: Monday 10:00 AM - 10:30 AM at San Pedro...",
       date: "5:05 PM",
       unread: false,
       avatarColor: "#c62828",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2 style="color: #ea4335;">Order Confirmed</h2>
-          <p>Your grocery order has been received. We'll text you when personal shoppers start your cart.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>H-E-B Curbside</h3><p>Pickup reserved for Monday morning.</p></div>`
     },
     {
-      id: 101,
+      id: 305,
       sender: "Amazon.com",
       senderEmail: "auto-confirm@amazon.com",
       subject: "Delivered: Your Amazon package with Ultra PRO Toploaders...",
@@ -401,37 +398,21 @@
       date: "2:42 PM",
       unread: false,
       avatarColor: "#ff9900",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px; line-height: 1.5;">
-          <div style="font-size: 20px; font-weight: bold; color: #5bb974; margin-bottom: 8px;">Delivered</div>
-          <p style="margin-bottom: 12px;">Your package was delivered today at 2:38 PM.</p>
-          <div style="background: #1e1e1e; padding: 12px; border-radius: 8px; margin-bottom: 16px; border: 1px solid #333;">
-            <strong style="color:#ffffff;">Order #114-8923171-4820194</strong><br />
-            Ultra PRO 3" x 4" Regular Toploaders (100-Count) &amp; Premium Penny Sleeves Combo Pack<br />
-            <span style="color: #9aa0a6; font-size: 13px;">Sold by Amazon.com Services LLC</span>
-          </div>
-          <p style="color: #9aa0a6; font-size: 13px;">Track your package or view your order details in the Amazon App.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Delivered</h3><p>Order #114-8923171-4820194 delivered at 2:38 PM.</p></div>`
     },
     {
-      id: 204,
+      id: 306,
       sender: "Steam Support",
       senderEmail: "noreply@steampowered.com",
       subject: "Thank you for your Steam purchase!",
-      snippet: "An item on your Steam wishlist is on sale! Also attached is your digital receipt for...",
+      snippet: "An item on your Steam wishlist is on sale! Also attached is your digital receipt for transaction...",
       date: "1:18 PM",
       unread: false,
       avatarColor: "#171a21",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2>Steam Purchase Receipt</h2>
-          <p>Thank you for your recent transaction on Steam.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Steam Order</h3><p>Receipt for wallet top-up.</p></div>`
     },
     {
-      id: 102,
+      id: 307,
       sender: "CVS Pharmacy",
       senderEmail: "prescriptions@cvs.com",
       subject: "Ready for Pickup: Your prescription is ready at CVS",
@@ -439,54 +420,65 @@
       date: "11:15 AM",
       unread: true,
       avatarColor: "#cc0000",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px; line-height: 1.5;">
-          <h2 style="color: #ea4335; font-size: 18px; margin-bottom: 8px;">Your Rx is Ready for Pickup</h2>
-          <p style="margin-bottom: 12px;">Hello,</p>
-          <p style="margin-bottom: 12px;">Your prescription is ready for pickup at our pharmacy counter or drive-thru window.</p>
-          <div style="border: 1px solid #333; background: #1e1e1e; padding: 12px; border-radius: 6px; margin-bottom: 14px;">
-            <strong style="color:#ffffff;">Pickup Location:</strong> CVS Pharmacy #7491<br />
-            <strong>Ready Date:</strong> August 16, 2026<br />
-            <strong>Rx Number ending in:</strong> ...4920
-          </div>
-          <p style="font-size: 12px; color: #9aa0a6;">Please bring your government-issued photo ID and insurance card if applicable.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>CVS Pharmacy</h3><p>Your Rx order ending in 4920 is ready for pickup.</p></div>`
     },
     {
-      id: 205,
+      id: 308,
+      sender: "Spotify",
+      senderEmail: "no-reply@spotify.com",
+      subject: "Your Spotify Premium receipt for August",
+      snippet: "We've received your monthly subscription payment of $11.99. Thanks for jamming with us...",
+      date: "Aug 15",
+      unread: false,
+      avatarColor: "#1db954",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Spotify Premium</h3><p>Receipt for August monthly plan.</p></div>`
+    },
+    {
+      id: 309,
       sender: "PlayStation",
       senderEmail: "sony@email.sonyentertainmentnetwork.com",
       subject: "Thank You For Your Purchase",
-      snippet: "We acknowledge receipt of your order. Online ID: ... Funds have been deducted from your wallet...",
+      snippet: "We acknowledge receipt of your order. Funds have been deducted from your PSN wallet balance...",
       date: "Aug 14",
       unread: false,
       avatarColor: "#003791",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h3>PlayStation Store Receipt</h3>
-          <p>Thank you for purchasing on PlayStation Network.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PlayStation Network</h3><p>Your digital purchase is confirmed.</p></div>`
     },
     {
-      id: 206,
+      id: 310,
+      sender: "Netflix",
+      senderEmail: "info@mailer.netflix.com",
+      subject: "Coming this Friday: New releases for your watchlist",
+      snippet: "Check out what's trending this week on Netflix based on your recent viewing history...",
+      date: "Aug 13",
+      unread: false,
+      avatarColor: "#e50914",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Netflix Updates</h3><p>New shows and movies added this week.</p></div>`
+    },
+    {
+      id: 311,
       sender: "Whataburger Rewards",
       senderEmail: "rewards@whataburger.com",
       subject: "You've earned free rewards points!",
-      snippet: "Your recent visit added 120 points to your account. You are now only 80 points away from...",
+      snippet: "Your recent visit added 120 points to your account. You are now only 80 points away from a reward...",
       date: "Aug 11",
       unread: false,
       avatarColor: "#ff7300",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2>Whataburger Rewards</h2>
-          <p>Your points have been added to your loyalty profile.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Whataburger Rewards</h3><p>120 points added to your account profile.</p></div>`
     },
     {
-      id: 207,
+      id: 312,
+      sender: "PayPal",
+      senderEmail: "service@paypal.com",
+      subject: "Receipt for your payment to Nintendo of America",
+      snippet: "You sent a payment of $19.99 USD to Nintendo of America Inc. View transaction details...",
+      date: "Aug 10",
+      unread: false,
+      avatarColor: "#003087",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>PayPal Receipt</h3><p>Payment of $19.99 completed.</p></div>`
+    },
+    {
+      id: 313,
       sender: "Chase Alerts",
       senderEmail: "no.reply.alerts@chase.com",
       subject: "Your weekly account balance summary",
@@ -494,15 +486,21 @@
       date: "Aug 9",
       unread: false,
       avatarColor: "#117aca",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h3>Account Summary</h3>
-          <p>Your automatic weekly financial summary is ready for review.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Chase Balance Alert</h3><p>Your weekly account overview is available.</p></div>`
     },
     {
-      id: 208,
+      id: 314,
+      sender: "UPS My Choice",
+      senderEmail: "pkginfo@ups.com",
+      subject: "UPS Delivery Notification: Package scheduled for delivery",
+      snippet: "Tracking Number 1Z9999999999999999. Estimated time of delivery between 1:00 PM and 5:00 PM...",
+      date: "Aug 8",
+      unread: false,
+      avatarColor: "#351c15",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>UPS Delivery</h3><p>Package delivered to front porch.</p></div>`
+    },
+    {
+      id: 315,
       sender: "Best Buy",
       senderEmail: "BestBuyInfo@emailinfo.bestbuy.com",
       subject: "Your digital receipt for Order #BBY01-849102",
@@ -510,12 +508,29 @@
       date: "Aug 6",
       unread: false,
       avatarColor: "#fff100",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2 style="color:#ffffff;">Best Buy In-Store Receipt</h2>
-          <p>Thank you for shopping at Best Buy.</p>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>Best Buy In-Store</h3><p>Order receipt #BBY01-849102.</p></div>`
+    },
+    {
+      id: 316,
+      sender: "eBay",
+      senderEmail: "ebay@ebay.com",
+      subject: "Your item has shipped! (Tracking attached)",
+      snippet: "Great news! The seller has shipped your order: Japanese Booster Pack Case (10 Count)...",
+      date: "Aug 5",
+      unread: false,
+      avatarColor: "#e53238",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>eBay Shipping Notice</h3><p>Your trading card accessories have shipped.</p></div>`
+    },
+    {
+      id: 317,
+      sender: "FedEx Delivery",
+      senderEmail: "trackingupdates@fedex.com",
+      subject: "FedEx Shipment Delivered: Signature Received",
+      snippet: "Your FedEx shipment with tracking number 773918291032 was delivered to your address...",
+      date: "Aug 4",
+      unread: false,
+      avatarColor: "#4d148c",
+      htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>FedEx Delivered</h3><p>Delivered on Aug 4, left at front door.</p></div>`
     },
     {
       id: 1,
@@ -585,16 +600,7 @@
       date: "Jul 29",
       unread: false,
       avatarColor: "#d93025",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2 style="color: #ea4335;">Order Confirmed</h2>
-          <p>Hi John,</p>
-          <p>Thanks for shopping at Target. We're processing your order now.</p>
-          <hr style="border: 0; border-top: 1px solid #333; margin: 12px 0;" />
-          <div><strong>Order Number:</strong> 983419082</div>
-          <div><strong>Estimated Delivery:</strong> Aug 2 - Aug 4</div>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Order Confirmed</h2><p>Target Order #983419082.</p></div>`
     },
     {
       id: 104,
@@ -605,17 +611,7 @@
       date: "Jul 26",
       unread: false,
       avatarColor: "#5865f2",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h3 style="color: #8ab4f8;">New login detected</h3>
-          <p>Hi there,</p>
-          <p>We detected a login to your Discord account from an unrecognized device:</p>
-          <ul style="margin: 10px 0 10px 20px; color: #9aa0a6;">
-            <li><strong>Device:</strong> Chrome on Windows</li>
-            <li><strong>Location:</strong> San Antonio, Texas, USA</li>
-          </ul>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h3>New login detected</h3><p>Chrome on Windows in Texas.</p></div>`
     },
     {
       id: 105,
@@ -626,19 +622,7 @@
       date: "Jul 22",
       unread: false,
       avatarColor: "#06c167",
-      htmlBody: `
-        <div style="font-family: Arial, sans-serif; color: #e8eaed; font-size: 14px;">
-          <h2>Thanks for ordering, John</h2>
-          <p>Here's your receipt for your recent order.</p>
-          <div style="background: #1e1e1e; padding: 12px; border-radius: 8px; margin: 12px 0; border: 1px solid #333;">
-            <div style="display: flex; justify-content: space-between;">
-              <span>Total</span>
-              <strong style="color:#ffffff;">$24.85</strong>
-            </div>
-            <div style="font-size: 12px; color: #9aa0a6; margin-top: 4px;">Paid with Apple Pay (Visa ****4910)</div>
-          </div>
-        </div>
-      `
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, John</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
     }
   ];
 
