@@ -33,6 +33,7 @@
       height: 100%;
       background: #121212 !important;
       color: var(--text-primary);
+      overflow: hidden;
     }
 
     .app-container {
@@ -108,7 +109,6 @@
       overflow-y: auto;
       background: #121212;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 70px);
     }
 
     .email-item {
@@ -203,9 +203,9 @@
     /* Floating Compose Pill */
     .floating-compose {
       position: absolute;
-      bottom: calc(env(safe-area-inset-bottom, 20px) + 65px);
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 58px);
       right: 18px;
-      height: 52px;
+      height: 50px;
       padding: 0 20px;
       border-radius: 16px;
       background: #0b57d0;
@@ -227,19 +227,17 @@
       fill: #ffffff;
     }
 
-    /* Bottom iOS Navigation Bar */
+    /* Bottom iOS Navigation Bar (In-Flow) */
     .bottom-nav-bar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
       width: 100%;
       background: #000000;
       border-top: 0.5px solid #222;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding-top: 8px;
-      padding-bottom: max(env(safe-area-inset-bottom), 12px);
+      padding-top: 6px;
+      padding-bottom: env(safe-area-inset-bottom, 8px);
+      flex-shrink: 0;
       z-index: 40;
     }
 
@@ -467,11 +465,11 @@
       display: block;
     }
 
-    /* Fixed Persistent Action Bar at Bottom of Email */
+    /* Fixed In-Flow Action Bar at Bottom of Email */
     .detail-action-bar-fixed {
       background: #18191b;
       border-top: 0.5px solid #2d2f31;
-      padding: 10px 16px max(env(safe-area-inset-bottom), 14px);
+      padding: 8px 16px env(safe-area-inset-bottom, 8px);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -533,7 +531,7 @@
       display: none;
       flex-direction: column;
       padding-top: env(safe-area-inset-top, 47px);
-      padding-bottom: env(safe-area-inset-bottom, 20px);
+      padding-bottom: env(safe-area-inset-bottom, 8px);
     }
 
     .compose-modal-screen.active {
