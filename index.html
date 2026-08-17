@@ -26,14 +26,22 @@
       padding: 0;
       -webkit-tap-highlight-color: transparent;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Google Sans", Roboto, Helvetica, Arial, sans-serif;
+      touch-action: manipulation;
     }
 
     html, body {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
       background: #121212 !important;
       color: var(--text-primary);
       overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
 
     .app-container {
@@ -43,6 +51,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     /* Fixed Top Area */
@@ -109,7 +118,7 @@
       overflow-y: auto;
       background: #121212;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 70px;
+      padding-bottom: 75px;
     }
 
     .email-item {
@@ -143,6 +152,7 @@
     .email-info {
       flex: 1;
       min-width: 0;
+      pointer-events: none;
     }
 
     .row-top {
@@ -599,7 +609,7 @@
   </div>
 
   <!-- Scrollable Mail List -->
-  <div class="content-view">
+  <div class="content-view" id="content-view">
     <div id="inbox-list"></div>
   </div>
 
@@ -1152,7 +1162,10 @@
     data.forEach(item => {
       const el = document.createElement('div');
       el.className = `email-item ${item.unread ? 'unread' : ''}`;
-      el.onclick = () => openEmail(item.id);
+      el.onclick = (e) => {
+        e.stopPropagation();
+        openEmail(item.id);
+      };
 
       el.innerHTML = `
         <div class="sender-avatar" style="background: ${item.avatarColor || '#e53935'};">
@@ -1245,6 +1258,13 @@
   function closeCompose() {
     document.getElementById('compose-modal').classList.remove('active');
   }
+
+  // Prevent background window scrolling that causes iOS hit-testing shifts
+  document.addEventListener('touchmove', function (e) {
+    if (!e.target.closest('.content-view, .detail-body-container, .compose-body-area')) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 
   renderInbox();
 </script>
