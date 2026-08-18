@@ -1294,16 +1294,17 @@
     },
     {
       id: 2,
-      sender: "Round1 No Reply",
+      sender: "noreply",
       senderEmail: "noreply@round1usa.com",
-      subject: "[Reminder - Required for Pickup] Thanks for entering ONE PIECE CARD GAME - ROUND1 Promotion Pack - Phase 3",
-      snippet: "Hi John Alzate, Congratulations! You're eligible to participate ONE PIECE CARD GAME -ROUND1...",
+      subject: "[Reminder - Required for Pickup] Thanks for e...",
+      snippet: "Hi John Alzate, Congratulations! You're eligi...",
       date: "Aug 15",
       fullDate: "Sat, Aug 15, 2026 at 7:04 AM",
       unread: false,
       starred: false,
-      useIconAvatar: true,
-      avatarColor: "#5f6368",
+      useIconAvatar: false,
+      avatarColor: "#e91e63",
+      avatarLetter: "N",
       htmlBody: `
         <div style="font-family: Helvetica, Arial, sans-serif; color: #e8eaed; line-height: 1.5; font-size: 15px;">
           <p style="margin-bottom: 12px;">
@@ -1639,9 +1640,14 @@
       el.className = `email-item ${item.unread ? 'unread' : ''}`;
       el.onclick = () => openEmail(item.id);
 
-      const avatarContent = item.useIconAvatar 
-        ? `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`
-        : item.sender.charAt(0).toUpperCase();
+      let avatarContent;
+      if (item.useIconAvatar) {
+        avatarContent = `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+      } else if (item.avatarLetter) {
+        avatarContent = item.avatarLetter;
+      } else {
+        avatarContent = item.sender.charAt(0).toUpperCase();
+      }
 
       el.innerHTML = `
         <div class="sender-avatar" style="background: ${item.avatarColor || '#5f6368'};">
@@ -1713,9 +1719,17 @@
     document.getElementById('read-title').innerText = item.subject;
     document.getElementById('read-sender').innerText = item.sender;
     document.getElementById('read-date-header').innerText = item.date;
-    document.getElementById('read-avatar').innerHTML = item.useIconAvatar 
-      ? `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`
-      : item.sender.charAt(0).toUpperCase();
+
+    let avatarInner;
+    if (item.useIconAvatar) {
+      avatarInner = `<svg class="avatar-icon-svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+    } else if (item.avatarLetter) {
+      avatarInner = item.avatarLetter;
+    } else {
+      avatarInner = item.sender.charAt(0).toUpperCase();
+    }
+
+    document.getElementById('read-avatar').innerHTML = avatarInner;
     document.getElementById('read-avatar').style.background = item.avatarColor || '#5f6368';
     document.getElementById('read-content').innerHTML = item.htmlBody;
 
