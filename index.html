@@ -515,6 +515,7 @@
     .detail-body-container {
       flex: 1;
       overflow-y: auto;
+      overflow-x: auto;
       padding: 12px 16px 20px;
       background: #121212;
       -webkit-overflow-scrolling: touch;
@@ -708,12 +709,7 @@
       font-size: 14px;
       line-height: 1.5;
       color: #e8eaed;
-    }
-
-    .detail-html-content img {
-      max-width: 100% !important;
-      height: auto !important;
-      display: block;
+      overflow-x: auto;
     }
 
     /* Fixed Persistent Action Bar at Bottom of Email */
@@ -1306,54 +1302,58 @@
       avatarColor: "#e91e63",
       avatarLetter: "N",
       htmlBody: `
-        <div style="font-family: Helvetica, Arial, sans-serif; color: #e8eaed; line-height: 1.5; font-size: 15px;">
-          <p style="margin-bottom: 12px;">
-            <img style="max-width: 100%; border-radius: 4px;" src="https://d2xcq4qphg1ge9.cloudfront.net/assets/657699/4094054/original_OP_TCG_P3_Website_Top_Page_Banner.jpg" alt="Round One Piece Banner" />
-          </p>
-          <p style="font-weight: 500; margin-bottom: 12px; color: #ffffff;">Hi Bryan Cepeda,</p>
+        <div style="width: 580px; min-width: 580px; font-family: Helvetica, Arial, sans-serif; color: #d1d5db; line-height: 1.45; font-size: 13.5px; padding-bottom: 24px;">
           <div style="margin-bottom: 12px;">
-            <div style="font-weight: 700; color: #ffffff;">Congratulations!</div>
-            <div style="color: #d1d5db;">You're eligible to participate ONE PIECE CARD GAME -ROUND1 Promotion Pack-. Please read the instructions carefully so you don't miss your chance.</div>
+            <img style="width: 100%; border-radius: 4px; display: block;" src="https://d2xcq4qphg1ge9.cloudfront.net/assets/657699/4094054/original_OP_TCG_P3_Website_Top_Page_Banner.jpg" alt="Round One Piece Banner" />
           </div>
           
-          <div style="margin-bottom: 14px; color: #d1d5db;">
+          <div style="margin-bottom: 12px; color: #e5e7eb;">Hi Bryan Cepeda,</div>
+          
+          <div style="margin-bottom: 12px;">
+            <strong style="color: #ffffff; display: block; margin-bottom: 2px;">Congratulations!</strong>
+            <div>You're eligible to participate ONE PIECE CARD GAME -ROUND1 Promotion Pack-. Please read the instructions carefully so you don't miss your chance.</div>
+          </div>
+          
+          <div style="margin-bottom: 14px; line-height: 1.4;">
             <div>Your Purchase Period: August 17 10AM &ndash; August 23, 2026, during regular operating hours</div>
             <div>Your Designated Store: FL Pembroke Lakes Mall</div>
           </div>
 
-          <div style="margin-bottom: 12px;">
-            <strong style="color: #ffffff;">Step 1: Visit Your Designated Store</strong>
-            <p style="margin: 4px 0 8px 0; color: #d1d5db;">Come to the Game Card Counter at your designated Round1 location during your Purchase Period.</p>
-            <p style="margin: 0 0 8px 0; color: #9ca3af; font-size: 14px;">Purchases are only available during your Purchase Period &mdash; late visits will not be accommodated.<br />You must visit the specific store you registered for. Visiting a different location will result in loss of eligibility.</p>
+          <div style="margin-bottom: 14px;">
+            <strong style="color: #ffffff; display: block; margin-bottom: 2px;">Step 1: Visit Your Designated Store</strong>
+            <div>Come to the Game Card Counter at your designated Round1 location during your Purchase Period.</div>
+            <div style="margin-top: 8px;">Purchases are only available during your Purchase Period &mdash; late visits will not be accommodated.</div>
+            <div>You must visit the specific store you registered for. Visiting a different location will result in loss of eligibility.</div>
           </div>
 
-          <div style="margin-bottom: 12px;">
-            <strong style="color: #ffffff;">Step 2: Check In at the Game Card Counter</strong>
-            <p style="margin: 4px 0 6px 0; color: #d1d5db;">Present the following to a staff member:</p>
-            <div style="margin-bottom: 6px; color: #d1d5db;">
+          <div style="margin-bottom: 14px;">
+            <strong style="color: #ffffff; display: block; margin-bottom: 2px;">Step 2: Check In at the Game Card Counter</strong>
+            <div>Present the following to a staff member:</div>
+            <div style="margin: 8px 0;">
               - This confirmation email<br />
               - A valid government-issued ID (physical copies only)
             </div>
-            <p style="margin: 0; color: #9ca3af; font-size: 14px;">The name on your ID must match your registration. This reservation is non-transferable.<br />Let the staff member know how many packages you'd like &mdash; up to 10 per person, subject to availability and promotion terms.</p>
+            <div>The name on your ID must match your registration. This reservation is non-transferable.</div>
+            <div>Let the staff member know how many packages you'd like &mdash; up to 10 per person, subject to availability and promotion terms.</div>
           </div>
 
-          <div style="margin-bottom: 12px;">
-            <strong style="color: #ffffff;">Step 3: Load Game Credits</strong>
-            <p style="margin: 4px 0 6px 0; color: #d1d5db;">For each package, load $20 in game credits onto your Round1 Game Card or Club Card at the counter at the time of purchase.</p>
-            <div style="margin-bottom: 6px; color: #d1d5db;">Example: 10 packages = $200 in game credits</div>
-            <p style="font-size: 13.5px; color: #9ca3af; margin-top: 4px;">Cards are allocated and distributed solely at Round1's discretion. Participants may not select, request, inspect, or exchange specific cards, card types, or characters. All purchases are final &mdash; no returns, exchanges, refunds, or substitutions will be permitted.</p>
+          <div style="margin-bottom: 14px;">
+            <strong style="color: #ffffff; display: block; margin-bottom: 2px;">Step 3: Load Game Credits</strong>
+            <div>For each package, load $20 in game credits onto your Round1 Game Card or Club Card at the counter at the time of purchase.</div>
+            <div style="margin: 4px 0 8px 0;">Example: 10 packages = $200 in game credits</div>
+            <div>Cards are allocated and distributed solely at Round1's discretion. Participants may not select, request, inspect, or exchange specific cards, card types, or characters. All purchases are final &mdash; no returns, exchanges, refunds, or substitutions will be permitted.</div>
           </div>
 
           <div style="margin-bottom: 16px;">
-            <strong style="color: #ffffff;">Step 4: Enjoy!</strong>
-            <p style="margin: 4px 0 0 0; color: #d1d5db;">Open your mystery packages and see what you get! Share your pulls on social media and enjoy the rest of your day at Round1.</p>
+            <strong style="color: #ffffff; display: block; margin-bottom: 2px;">Step 4: Enjoy!</strong>
+            <div>Open your mystery packages and see what you get! Share your pulls on social media and enjoy the rest of your day at Round1.</div>
           </div>
 
-          <div style="font-size: 13px; color: #888; border-top: 1px solid #333; padding-top: 10px; margin-bottom: 20px;">
-            Terms &amp; Conditions (<a href="#" style="color: #8ab4f8; text-decoration: underline;">link</a>)
+          <div style="font-size: 13px; color: #9ca3af; margin-bottom: 22px;">
+            Terms &amp; Conditions (<a href="#" style="color: #29b6f6; text-decoration: underline;">link</a>)
           </div>
 
-          <div style="background: #18191c; border-radius: 4px; padding: 18px 16px; text-align: center; font-size: 14px; color: #9e9e9e; line-height: 1.6; margin-top: 8px;">
+          <div style="background: #18191c; border-radius: 4px; padding: 18px 16px; text-align: center; font-size: 13.5px; color: #9e9e9e; line-height: 1.6;">
             <span>NoReply | </span><a href="#" style="color: #29b6f6; text-decoration: none;">12900 Park Plaza Drive | Suite 200 | Cerritos, CA, US |</a><br>
             <a href="#" style="color: #29b6f6; text-decoration: underline; display: inline-block; margin-top: 4px;">Unsubscribe</a>
           </div>
