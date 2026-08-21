@@ -515,7 +515,6 @@
     .detail-body-container {
       flex: 1;
       overflow-y: auto;
-      overflow-x: auto;
       padding: 12px 16px 20px;
       background: #121212;
       -webkit-overflow-scrolling: touch;
@@ -709,7 +708,12 @@
       font-size: 14px;
       line-height: 1.5;
       color: #e8eaed;
-      overflow-x: auto;
+    }
+
+    .detail-html-content img {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
     }
 
     /* Fixed Persistent Action Bar at Bottom of Email */
@@ -904,7 +908,7 @@
     <div class="search-chip">
       <button class="menu-btn" onclick="openDrawer()">☰</button>
       <input type="text" placeholder="Search in mail" id="search-input" oninput="handleSearch()" />
-      <div class="gmail-avatar">BC</div>
+      <div class="gmail-avatar">MC</div>
     </div>
     <div class="label-heading">Primary</div>
   </div>
@@ -1108,7 +1112,7 @@
         </div>
         <div class="detail-field-row">
           <span class="detail-field-label">Date</span>
-          <span class="detail-field-val" id="card-date">Aug 15, 2026 at 10:04 AM</span>
+          <span class="detail-field-val" id="card-date">Aug 15, 2026 at 7:04 AM</span>
         </div>
         <div class="security-row">
           <span class="security-lock">🔒</span>
@@ -1196,8 +1200,8 @@
       senderEmail: "applepay@insideapple.apple.com",
       subject: "Your receipt from Apple Store",
       snippet: "Apple Store receipt: $10.81. Payment Method: Apple Card (Mastercard .... 8821)...",
-      date: "12:18 AM",
-      fullDate: "Tue, Aug 17, 2026 at 12:18 AM",
+      date: "9:18 PM",
+      fullDate: "Mon, Aug 16, 2026 at 9:18 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -1210,8 +1214,8 @@
       senderEmail: "no-reply@doordash.com",
       subject: "Your order from Chipotle Mexican Grill is on its way!",
       snippet: "Your Dasher is heading to the store. Track your burrito bowl delivery live...",
-      date: "11:05 PM",
-      fullDate: "Mon, Aug 16, 2026 at 11:05 PM",
+      date: "8:05 PM",
+      fullDate: "Mon, Aug 16, 2026 at 8:05 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -1224,8 +1228,8 @@
       senderEmail: "auto-reply@usps.com",
       subject: "USPS Expected Delivery Update: 94001118992231",
       snippet: "Your package is on schedule to arrive tomorrow, Monday, August 17. Status: In Transit...",
-      date: "10:12 PM",
-      fullDate: "Mon, Aug 16, 2026 at 10:12 PM",
+      date: "7:12 PM",
+      fullDate: "Mon, Aug 16, 2026 at 7:12 PM",
       unread: true,
       starred: false,
       useIconAvatar: false,
@@ -1238,8 +1242,8 @@
       senderEmail: "orders@heb.com",
       subject: "Your H-E-B order is confirmed for pickup!",
       snippet: "Thanks for placing your order! Pickup slot reserved: Monday 10:00 AM - 10:30 AM at San Pedro...",
-      date: "8:05 PM",
-      fullDate: "Mon, Aug 16, 2026 at 8:05 PM",
+      date: "5:05 PM",
+      fullDate: "Mon, Aug 16, 2026 at 5:05 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1252,8 +1256,8 @@
       senderEmail: "auto-confirm@amazon.com",
       subject: "Delivered: Your Amazon package with Ultra PRO Toploaders...",
       snippet: "Your package has been delivered. It was handed directly to a resident or placed in your safe parcel box...",
-      date: "5:42 PM",
-      fullDate: "Mon, Aug 16, 2026 at 5:42 PM",
+      date: "2:42 PM",
+      fullDate: "Mon, Aug 16, 2026 at 2:42 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1266,8 +1270,8 @@
       senderEmail: "noreply@steampowered.com",
       subject: "Thank you for your Steam purchase!",
       snippet: "An item on your Steam wishlist is on sale! Also attached is your digital receipt for transaction...",
-      date: "4:18 PM",
-      fullDate: "Mon, Aug 16, 2026 at 4:18 PM",
+      date: "1:18 PM",
+      fullDate: "Mon, Aug 16, 2026 at 1:18 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1280,15 +1284,15 @@
       senderEmail: "prescriptions@cvs.com",
       subject: "Ready for Pickup: Your prescription is ready at CVS",
       snippet: "Your Rx order is ready at your local CVS Pharmacy located at 410 / San Pedro Ave. Store hours...",
-      date: "2:15 PM",
-      fullDate: "Mon, Aug 16, 2026 at 2:15 PM",
+      date: "11:15 AM",
+      fullDate: "Mon, Aug 16, 2026 at 11:15 AM",
       unread: true,
       starred: false,
       useIconAvatar: false,
       avatarColor: "#cc0000",
       htmlBody: `<div style="font-family: Arial; color:#e8eaed;"><h3>CVS Pharmacy</h3><p>Your Rx order ending in 4920 is ready for pickup.</p></div>`
     },
-    {
+  {
       id: 2,
       sender: "noreply",
       senderEmail: "noreply@round1usa.com",
@@ -1569,7 +1573,7 @@
       subject: "Don't sleep on these new member favorites!",
       snippet: "Curated essentials and trending products you'...",
       date: "Aug 3",
-      fullDate: "Mon, Aug 3, 2026 at 12:15 PM",
+      fullDate: "Mon, Aug 3, 2026 at 9:15 AM",
       unread: false,
       starred: false,
       useIconAvatar: true,
@@ -1583,7 +1587,7 @@
       subject: "Still time for July Instant Savings* ⏰",
       snippet: "Your cart wants these.",
       date: "Aug 2",
-      fullDate: "Sun, Aug 2, 2026 at 6:45 PM",
+      fullDate: "Sun, Aug 2, 2026 at 3:45 PM",
       unread: false,
       starred: false,
       useIconAvatar: true,
@@ -1597,7 +1601,7 @@
       subject: "Thanks for your order! (Order #983419082)",
       snippet: "We're preparing your order for shipping. We'll send tracking information as soon as your items leave our facility...",
       date: "Jul 29",
-      fullDate: "Wed, Jul 29, 2026 at 5:19 PM",
+      fullDate: "Wed, Jul 29, 2026 at 2:19 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1610,8 +1614,8 @@
       senderEmail: "notifications@discord.com",
       subject: "New login to Discord from Chrome on Windows",
       snippet: "Your Discord account was recently logged into from a new IP address located in Texas, United States...",
-      date: "Jul 27",
-      fullDate: "Mon, Jul 27, 2026 at 2:42 AM",
+      date: "Jul 26",
+      fullDate: "Sun, Jul 26, 2026 at 11:42 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
@@ -1623,14 +1627,14 @@
       sender: "Uber Eats",
       senderEmail: "receipts@uber.com",
       subject: "Your Saturday evening receipt with Uber Eats",
-      snippet: "Total: $24.85. Thanks for ordering, Bryan! Here is the detailed breakdown of your food delivery order...",
+      snippet: "Total: $24.85. Thanks for ordering, Martha! Here is the detailed breakdown of your food delivery order...",
       date: "Jul 22",
-      fullDate: "Wed, Jul 22, 2026 at 11:54 PM",
+      fullDate: "Wed, Jul 22, 2026 at 8:54 PM",
       unread: false,
       starred: false,
       useIconAvatar: false,
       avatarColor: "#06c167",
-      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, Bryan</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
+      htmlBody: `<div style="font-family: Arial; color: #e8eaed;"><h2>Thanks for ordering, Martha</h2><p>Total: $24.85 paid with Apple Pay.</p></div>`
     }
   ];
 
