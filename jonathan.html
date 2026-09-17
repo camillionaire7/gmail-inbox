@@ -1257,7 +1257,7 @@
           
           <div style="margin-bottom: 14px; color: #d1d5db;">
             <div>Your Purchase Period: September 30 10AM &ndash; October 6, 2026, during regular operating hours</div>
-            <div>Your Designated Store: TX North Star Mall</div>
+            <div>Your Designated Store: FL Pembroke Lakes Mall</div>
           </div>
 
           <div style="margin-bottom: 12px;">
@@ -1669,7 +1669,7 @@
     updateDetailStarIcon(item.starred);
 
     document.getElementById('card-from').innerText = item.senderEmail || item.sender;
-    document.getElementById('card-to').innerText = (item.id === 1) ? "jonathan@valid3d.com" : "jonathan@valid3d.com";
+    document.getElementById('card-to').innerText = "jonathan@valid3d.com";
     document.getElementById('card-date').innerText = item.fullDate || `${item.date}, 2026`;
 
     document.getElementById('sender-card').classList.remove('active');
@@ -1735,7 +1735,7 @@
     if (activeEmailId) {
       const item = inbox.find(x => x.id === activeEmailId);
       if (item) {
-        const toEmailAddr = (item.id === 1) ? "jonathan@valid3d.com" : "jonathan@valid3d.com";
+        const toEmailAddr = "jonathan@valid3d.com";
         if (actionType === 'forward') {
           typeIcon.innerHTML = `<svg style="width:18px; height:18px; fill:var(--text-secondary);" viewBox="0 0 24 24"><path d="M14 9v-4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg><span style="font-size: 10px;">▾</span>`;
           toInput.placeholder = "Forward to";
